@@ -1,0 +1,74 @@
+/* ==========================================================================
+   Levrotec Design Tokens
+   Palette: midnight navy base, sky blue + vibrant yellow accents
+   ========================================================================== */
+
+:root {
+  /* --- Base surfaces (dark slate / midnight navy) --- */
+  --bg-void: #05070f;
+  --bg-base: #070c1a;
+  --bg-elevated: #0c1428;
+  --bg-surface: #101b36;
+  --bg-surface-2: #152242;
+  --bg-surface-3: #1b2b52;
+
+  /* --- Borders / dividers --- */
+  --border-subtle: rgba(148, 175, 255, 0.1);
+  --border-medium: rgba(148, 175, 255, 0.18);
+  --border-strong: rgba(148, 175, 255, 0.3);
+
+  /* --- Accent: Sky Blue --- */
+  --sky-100: #e0f4ff;
+  --sky-300: #7dd3fc;
+  --sky-400: #38bdf8;
+  --sky-500: #0ea5e9;
+  --sky-600: #0284c7;
+
+  /* --- Accent: Vibrant Yellow --- */
+  --yellow-200: #fef3b0;
+  --yellow-300: #fde047;
+  --yellow-400: #facc15;
+  --yellow-500: #eab308;
+
+  /* --- Text --- */
+  --text-primary: #f4f7fc;
+  --text-secondary: #aab6d8;
+  --text-muted: #7a87ab;
+  --text-inverse: #061022;
+
+  /* --- Gradients --- */
+  --gradient-brand: linear-gradient(120deg, var(--sky-400) 0%, var(--sky-500) 45%, var(--yellow-400) 100%);
+  --gradient-brand-soft: linear-gradient(120deg, rgba(56, 189, 248, 0.16) 0%, rgba(250, 204, 21, 0.12) 100%);
+  --gradient-text: linear-gradient(95deg, var(--sky-300) 0%, var(--sky-400) 40%, var(--yellow-300) 100%);
+  --gradient-radial-glow: radial-gradient(circle at center, rgba(56, 189, 248, 0.22) 0%, rgba(56, 189, 248, 0) 70%);
+  --gradient-yellow-glow: radial-gradient(circle at center, rgba(250, 204, 21, 0.18) 0%, rgba(250, 204, 21, 0) 70%);
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 2px 8px rgba(2, 6, 20, 0.4);
+  --shadow-md: 0 8px 30px rgba(2, 6, 20, 0.45);
+  --shadow-lg: 0 20px 60px rgba(2, 6, 20, 0.55);
+  --shadow-glow-sky: 0 0 40px rgba(56, 189, 248, 0.25);
+  --shadow-glow-yellow: 0 0 40px rgba(250, 204, 21, 0.2);
+
+  /* --- Radii --- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --radius-full: 999px;
+
+  /* --- Typography --- */
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* --- Layout --- */
+  --container-width: 1240px;
+  --nav-height: 84px;
+
+  /* --- Motion --- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 0.2s;
+  --dur-base: 0.4s;
+  --dur-slow: 0.8s;
+}

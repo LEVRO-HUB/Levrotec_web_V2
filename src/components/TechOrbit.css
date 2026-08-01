@@ -1,0 +1,151 @@
+.orbit-system {
+  position: relative;
+  width: clamp(300px, 42vw, 620px);
+  height: clamp(300px, 42vw, 620px);
+  margin-inline: auto;
+}
+
+.orbit-glow {
+  position: absolute;
+  inset: -10%;
+  background: var(--gradient-radial-glow), var(--gradient-yellow-glow);
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Center V mark ---- */
+.orbit-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(84px, 12vw, 132px);
+  height: clamp(84px, 12vw, 132px);
+  border-radius: 28%;
+  display: grid;
+  place-items: center;
+  background: var(--gradient-brand);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15) inset, var(--shadow-glow-sky), var(--shadow-lg);
+  z-index: 5;
+}
+
+.orbit-center-letter {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+  color: var(--text-inverse);
+  letter-spacing: -0.03em;
+}
+
+.orbit-center-ping {
+  position: absolute;
+  inset: -18px;
+  border-radius: 32%;
+  border: 1.5px solid rgba(56, 189, 248, 0.5);
+  animation: orbit-ping 2.8s var(--ease-out-expo) infinite;
+}
+
+@keyframes orbit-ping {
+  0% { transform: scale(0.85); opacity: 0.9; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+/* ---- Rings ---- */
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.ring-1 { --radius: clamp(76px, 15vw, 150px); }
+.ring-2 { --radius: clamp(120px, 22vw, 230px); }
+.ring-3 { --radius: clamp(160px, 29vw, 300px); }
+
+.orbit-dashes {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--radius) * 2);
+  height: calc(var(--radius) * 2);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1.5px dashed var(--border-medium);
+  pointer-events: none;
+}
+
+.orbit-rotator {
+  position: absolute;
+  inset: 0;
+  animation-name: spin-cw;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.orbit-rotator.ccw {
+  animation-name: spin-ccw;
+}
+
+@keyframes spin-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-ccw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.orbit-anchor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.orbit-icon-holder {
+  animation-name: spin-cw;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.orbit-icon-holder.ccw {
+  animation-name: spin-ccw;
+}
+
+.orbit-icon {
+  --size: clamp(34px, 5vw, 54px);
+  width: var(--size);
+  height: var(--size);
+  margin-left: calc(var(--size) / -2);
+  margin-top: calc(var(--size) / -2);
+  border-radius: 30%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(160deg, var(--bg-surface-2), var(--bg-elevated));
+  border: 1px solid var(--border-medium);
+  box-shadow: var(--shadow-sm);
+  color: var(--icon-color, var(--sky-300));
+  font-size: calc(var(--size) * 0.5);
+  transition: transform var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth);
+}
+
+.orbit-icon:hover {
+  transform: scale(1.18);
+  border-color: var(--icon-color, var(--sky-300));
+  box-shadow: 0 0 22px color-mix(in srgb, var(--icon-color, var(--sky-400)) 55%, transparent);
+  z-index: 10;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-rotator,
+  .orbit-icon-holder,
+  .orbit-center-ping {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .ring-3 { --radius: clamp(140px, 40vw, 190px); }
+}

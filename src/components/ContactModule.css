@@ -1,0 +1,343 @@
+.contact-module {
+  max-width: 560px;
+  margin-inline: auto;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact-module:hover {
+  transform: none;
+}
+
+.contact-module-panel {
+  animation: panel-fade 0.45s var(--ease-out-expo);
+}
+
+@keyframes panel-fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.contact-module-switch {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ---- Scheduler: host header ---- */
+.scheduler-host {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.scheduler-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--gradient-brand);
+  color: var(--text-inverse);
+  font-weight: 700;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+}
+
+.scheduler-host-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.scheduler-host-role {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.scheduler-intro {
+  color: var(--text-secondary);
+  margin-bottom: 22px;
+  line-height: 1.6;
+}
+
+/* ---- Calendar ---- */
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  font-weight: 600;
+  font-family: var(--font-display);
+}
+
+.calendar-nav button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  transition: all var(--dur-fast) var(--ease-smooth);
+}
+
+.calendar-nav button:hover:not(:disabled) {
+  border-color: var(--sky-400);
+  color: var(--sky-300);
+}
+
+.calendar-nav button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 6px;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-cell {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  transition: all var(--dur-fast) var(--ease-smooth);
+}
+
+.calendar-cell.is-empty {
+  visibility: hidden;
+}
+
+.calendar-cell.is-available {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+}
+
+.calendar-cell.is-available:hover {
+  background: rgba(56, 189, 248, 0.14);
+  color: var(--sky-300);
+}
+
+.calendar-cell.is-selected {
+  background: var(--gradient-brand) !important;
+  color: var(--text-inverse) !important;
+  font-weight: 700;
+}
+
+.calendar-cell:disabled:not(.is-empty) {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+/* ---- Time slots ---- */
+.time-slots {
+  margin-top: 22px;
+  animation: panel-fade 0.35s var(--ease-out-expo);
+}
+
+.time-slots-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.time-slot {
+  padding: 10px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-medium);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: all var(--dur-fast) var(--ease-smooth);
+}
+
+.time-slot:hover {
+  border-color: var(--sky-400);
+  color: var(--text-primary);
+}
+
+.time-slot.is-selected {
+  background: var(--gradient-brand);
+  border-color: transparent;
+  color: var(--text-inverse);
+  font-weight: 600;
+}
+
+.confirm-btn {
+  width: 100%;
+  margin-top: 22px;
+}
+
+.confirm-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ---- Confirmed / success state ---- */
+.scheduler-confirmed {
+  text-align: center;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.confirmed-icon {
+  font-size: 2.6rem;
+  color: var(--sky-400);
+  margin-bottom: 6px;
+}
+
+.scheduler-confirmed h3 {
+  font-size: 1.3rem;
+}
+
+.scheduler-confirmed p {
+  color: var(--text-secondary);
+  max-width: 380px;
+}
+
+.scheduler-confirmed-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.scheduler-confirmed .btn {
+  margin-top: 10px;
+}
+
+/* ---- Message form ---- */
+.message-form-title {
+  font-size: 1.4rem;
+  margin-bottom: 22px;
+}
+
+.message-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label,
+.field-legend {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.field input,
+.field textarea {
+  background: var(--bg-base);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  color: var(--text-primary);
+  resize: vertical;
+  transition: border-color var(--dur-fast) var(--ease-smooth), box-shadow var(--dur-fast) var(--ease-smooth);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--sky-400);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-option,
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.checkbox-option a {
+  color: var(--sky-300);
+  text-decoration: underline;
+}
+
+.radio-option input,
+.checkbox-option input {
+  accent-color: var(--sky-400);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.submit-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 560px) {
+  .contact-module {
+    padding: 26px 20px;
+  }
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+  .time-slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
