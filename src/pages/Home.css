@@ -71,6 +71,8 @@
 }
 
 .service-teaser-card {
+  display: flex;
+  flex-direction: column;
   padding: 32px 28px;
 }
 
@@ -102,32 +104,36 @@
   justify-content: center;
 }
 
-/* ---------------- Case study teaser ---------------- */
-.case-teaser {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  align-items: center;
-  gap: 40px;
-  padding: 48px;
-  overflow: hidden;
+/* ---------------- Case study showcase ---------------- */
+.case-showcase-grid {
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.case-teaser-copy h2 {
-  margin: 14px 0 16px;
-}
-
-.case-teaser-metrics {
+.case-showcase-card {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 20px 0 28px;
+  flex-direction: column;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-elevated) 100%);
+  border: 1px solid var(--border-subtle);
+  transition: transform var(--dur-base) var(--ease-out-expo), border-color var(--dur-base) var(--ease-smooth), box-shadow var(--dur-base) var(--ease-smooth);
 }
 
-.case-teaser-visual {
+.case-showcase-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-lg);
+}
+
+.case-showcase-visual {
   position: relative;
-  height: 260px;
+  height: 140px;
   display: grid;
   place-items: center;
+  margin-bottom: 20px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-elevated);
 }
 
 .case-teaser-orb {
@@ -138,25 +144,25 @@
 }
 
 .orb-sky {
-  width: 200px;
-  height: 200px;
+  width: 130px;
+  height: 130px;
   background: var(--sky-500);
   top: -20px;
   left: 10%;
 }
 
 .orb-yellow {
-  width: 160px;
-  height: 160px;
+  width: 100px;
+  height: 100px;
   background: var(--yellow-400);
   bottom: -10px;
   right: 10%;
 }
 
-.case-teaser-mark {
+.case-showcase-mark {
   position: relative;
-  width: 130px;
-  height: 130px;
+  width: 72px;
+  height: 72px;
   display: grid;
   place-items: center;
   border-radius: 30%;
@@ -164,9 +170,14 @@
   color: var(--text-inverse);
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 3.2rem;
+  font-size: 1.8rem;
   box-shadow: var(--shadow-lg);
 }
+
+.case-showcase-card .pill { margin-bottom: 14px; align-self: flex-start; }
+.case-showcase-card h3 { font-size: 1.15rem; margin-bottom: 8px; }
+.case-showcase-card p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
+.case-showcase-link { margin-top: auto; }
 
 /* ---------------- Stats ---------------- */
 .stats-grid {
@@ -254,11 +265,11 @@
   .hero-lead { margin-inline: auto; }
   .hero-actions { justify-content: center; }
   .services-teaser-grid { grid-template-columns: repeat(2, 1fr); }
-  .case-teaser { grid-template-columns: 1fr; }
+  .case-showcase-grid { grid-template-columns: repeat(2, 1fr); }
   .stats-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
   .services-teaser-grid { grid-template-columns: 1fr; }
-  .case-teaser { padding: 32px 24px; }
+  .case-showcase-grid { grid-template-columns: 1fr; }
 }

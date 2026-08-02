@@ -30,6 +30,12 @@
   --yellow-400: #facc15;
   --yellow-500: #eab308;
 
+  /* --- Accent: Metallic Silver --- */
+  --silver-200: #f1f5f9;
+  --silver-300: #e2e8f0;
+  --silver-400: #cbd5e1;
+  --silver-500: #94a3b8;
+
   /* --- Text --- */
   --text-primary: #f4f7fc;
   --text-secondary: #aab6d8;
@@ -49,6 +55,12 @@
   --shadow-lg: 0 20px 60px rgba(2, 6, 20, 0.55);
   --shadow-glow-sky: 0 0 40px rgba(56, 189, 248, 0.25);
   --shadow-glow-yellow: 0 0 40px rgba(250, 204, 21, 0.2);
+  --shadow-glow-neon: 0 20px 60px rgba(2, 6, 20, 0.55), 0 0 0 1px rgba(148, 163, 184, 0.12), 0 0 32px rgba(56, 189, 248, 0.18), 0 0 20px rgba(250, 204, 21, 0.08);
+
+  /* --- Glassmorphism --- */
+  --glass-bg: rgba(16, 27, 54, 0.55);
+  --glass-border: rgba(226, 232, 240, 0.14);
+  --glass-blur: blur(18px);
 
   /* --- Radii --- */
   --radius-sm: 8px;

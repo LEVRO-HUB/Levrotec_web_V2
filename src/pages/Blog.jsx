@@ -1,5 +1,5 @@
 import { FiArrowUpRight } from 'react-icons/fi'
-import useDocumentTitle from '../hooks/useDocumentTitle.js'
+import SEO from '../components/SEO.jsx'
 import useReveal from '../hooks/useReveal.js'
 import { BLOG_POSTS } from '../data/blog.js'
 import './Blog.css'
@@ -9,11 +9,16 @@ function formatDate(dateStr) {
 }
 
 export default function Blog() {
-  useDocumentTitle('Blog')
   const scopeRef = useReveal()
 
   return (
     <div ref={scopeRef}>
+      <SEO
+        title="Blog"
+        description="Notes from Levrotec on modern software delivery, scaling MVPs, and optimizing DevOps pipelines."
+        keywords="software delivery blog, MVP scaling, DevOps pipeline optimization, Levrotec engineering"
+        path="/blog"
+      />
       <section className="section blog-hero">
         <div className="container">
           <div className="section-head center reveal">

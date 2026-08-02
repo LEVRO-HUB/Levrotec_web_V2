@@ -1,16 +1,21 @@
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
-import useDocumentTitle from '../hooks/useDocumentTitle.js'
+import SEO from '../components/SEO.jsx'
 import useReveal from '../hooks/useReveal.js'
 import { TECH_CATEGORIES } from '../data/techstack.js'
 import './Technology.css'
 
 export default function Technology() {
-  useDocumentTitle('Technology')
   const scopeRef = useReveal()
 
   return (
     <div ref={scopeRef}>
+      <SEO
+        title="Technology"
+        description="Levrotec's technology matrix: React, Flutter, Node.js, Python, Django, FastAPI, PostgreSQL, MongoDB, Redis, AWS, Cloudflare, Kubernetes, and Claude AI."
+        keywords="React development, Django development, AWS Kubernetes Chennai, Claude AI integration, custom software stack"
+        path="/technology"
+      />
       <section className="section technology-hero">
         <div className="container">
           <div className="section-head center reveal">
@@ -52,7 +57,7 @@ export default function Technology() {
 
       <section className="section">
         <div className="container">
-          <div className="final-cta card reveal">
+          <div className="final-cta card glass reveal">
             <span className="eyebrow" style={{ justifyContent: 'center' }}>Creating Tomorrow's Advantage</span>
             <h2 className="h2">Have a stack constraint? We'll work with it.</h2>
             <div className="hero-actions" style={{ justifyContent: 'center', marginTop: '28px' }}>

@@ -88,6 +88,13 @@
   flex-shrink: 0;
 }
 
+.service-row-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0 26px;
+}
+
 @media (max-width: 860px) {
   .service-row,
   .service-row.reversed {
@@ -100,5 +107,8 @@
   .service-capabilities {
     grid-template-columns: 1fr;
     justify-items: center;
+  }
+  .service-row-stack {
+    justify-content: center;
   }
 }

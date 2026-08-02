@@ -1,3 +1,25 @@
+.brand-story-section {
+  padding-top: 0;
+}
+
+.brand-story {
+  max-width: 860px;
+  margin-inline: auto;
+  padding: clamp(28px, 4vw, 44px);
+  border-radius: var(--radius-xl);
+  background: var(--gradient-brand-soft);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  line-height: 1.6;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.brand-story strong {
+  color: var(--sky-300);
+}
+
 .values-grid {
   grid-template-columns: repeat(3, 1fr);
 }

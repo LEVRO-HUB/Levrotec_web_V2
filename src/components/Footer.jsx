@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
-import { FiArrowUpRight, FiLinkedin, FiTwitter, FiGithub } from 'react-icons/fi'
+import { FiArrowUpRight, FiLinkedin, FiTwitter, FiGithub, FiPhone, FiMessageCircle } from 'react-icons/fi'
+import LevrotecLogo from './LevrotecLogo.jsx'
+import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL, LINKEDIN_URL } from '../data/contact.js'
 import './Footer.css'
 
 const COLUMNS = [
@@ -15,10 +17,11 @@ const COLUMNS = [
   {
     title: 'Services',
     links: [
-      { to: '/services', label: 'SaaS Development' },
-      { to: '/services', label: 'MVP Development' },
-      { to: '/services', label: 'DevOps Services' },
-      { to: '/services', label: 'IT Consulting' },
+      { to: '/services/saas-development', label: 'SaaS Development' },
+      { to: '/services/mvp-development', label: 'MVP Development' },
+      { to: '/services/devops-services', label: 'DevOps Services' },
+      { to: '/services/digital-marketing', label: 'Digital Marketing' },
+      { to: '/services/it-consulting', label: 'IT Consulting' },
     ],
   },
   {
@@ -27,6 +30,7 @@ const COLUMNS = [
       { to: '/technology', label: 'Technology' },
       { to: '/contact', label: 'Book a Call' },
       { to: '/contact', label: 'Send a Message' },
+      { to: '/privacy-policy', label: 'Privacy Policy' },
     ],
   },
 ]
@@ -39,12 +43,16 @@ export default function Footer() {
       <div className="container footer-top">
         <div className="footer-brand">
           <Link to="/" className="brand">
-            <span className="brand-mark">V</span>
+            <LevrotecLogo size={34} className="brand-mark" />
             <span className="brand-name">Levrotec</span>
           </Link>
           <p className="footer-tagline">Turn Possibility Into Progress.</p>
+          <div className="footer-contact">
+            <a href={PHONE_TEL}><FiPhone /> {PHONE_DISPLAY}</a>
+            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer"><FiMessageCircle /> WhatsApp Us</a>
+          </div>
           <div className="footer-social">
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FiLinkedin /></a>
+            <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" aria-label="LinkedIn"><FiLinkedin /></a>
             <a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="Twitter / X"><FiTwitter /></a>
             <a href="https://github.com/LEVRO-HUB" target="_blank" rel="noreferrer" aria-label="GitHub"><FiGithub /></a>
           </div>
@@ -79,7 +87,7 @@ export default function Footer() {
       <div className="container footer-bottom">
         <span>© {year} Levrotec. All rights reserved.</span>
         <span className="footer-legal">
-          <a href="#privacy">Privacy Policy</a>
+          <Link to="/privacy-policy">Privacy Policy</Link>
           <a href="#terms">Terms of Service</a>
         </span>
       </div>

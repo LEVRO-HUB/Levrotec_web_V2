@@ -22,6 +22,26 @@
   margin-bottom: 22px;
 }
 
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.footer-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  transition: color var(--dur-fast) var(--ease-smooth);
+}
+
+.footer-contact a:hover {
+  color: var(--sky-300);
+}
+
 .footer-social {
   display: flex;
   gap: 10px;

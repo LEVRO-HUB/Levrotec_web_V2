@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { FiArrowRight, FiArrowUpRight } from 'react-icons/fi'
-import useDocumentTitle from '../hooks/useDocumentTitle.js'
+import SEO from '../components/SEO.jsx'
 import useReveal from '../hooks/useReveal.js'
 import TechOrbit from '../components/TechOrbit.jsx'
 import { SERVICES } from '../data/services.js'
@@ -21,17 +21,20 @@ const TICKER_TAGLINES = [
 
 const STATS = [
   { value: '6', label: 'Founding operators building alongside every client' },
-  { value: '13+', label: 'Core technologies fluent across our stack' },
-  { value: '100%', label: 'Engagements paired with a dedicated technical lead' },
+  { value: '19+', label: 'Core technologies fluent across our stack' },
+  { value: '3', label: 'Flagship products shipped end-to-end' },
 ]
 
 export default function Home() {
-  useDocumentTitle('Home')
   const scopeRef = useReveal()
-  const flagshipCase = CASE_STUDIES[0]
 
   return (
     <div ref={scopeRef}>
+      <SEO
+        description="Levrotec is a Chennai-based SaaS development company building custom software, MVPs, and educational assessment platforms for businesses across Tamil Nadu, India, and globally."
+        keywords="Levrotec, SaaS Development Company Chennai, Custom Software Development Tamil Nadu, Educational Assessment Software India, Timetable Automation Software Anna University, MVP Development"
+        path="/"
+      />
       {/* ---------------- Hero ---------------- */}
       <section className="hero section">
         <div className="container hero-grid">
@@ -80,14 +83,18 @@ export default function Home() {
           </div>
 
           <div className="grid services-teaser-grid">
-            {SERVICES.slice(0, 6).map((service, i) => {
+            {SERVICES.map((service, i) => {
               const Icon = service.icon
               return (
-                <div className={`card service-teaser-card reveal reveal-delay-${(i % 3) + 1}`} key={service.id}>
+                <Link
+                  to={`/services/${service.slug}`}
+                  className={`card service-teaser-card reveal reveal-delay-${(i % 3) + 1}`}
+                  key={service.slug}
+                >
                   <div className="service-teaser-icon"><Icon /></div>
                   <h3>{service.title}</h3>
                   <p>{service.tagline}</p>
-                </div>
+                </Link>
               )
             })}
           </div>
@@ -100,31 +107,34 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- Flagship case study ---------------- */}
+      {/* ---------------- Flagship case studies ---------------- */}
       <section className="section case-teaser-section">
         <div className="container">
-          <div className="case-teaser card reveal">
-            <div className="case-teaser-copy">
-              <span className="eyebrow">Flagship Product</span>
-              <h2 className="h2">Where Ideas Gain Momentum.</h2>
-              <p className="lead">
-                Meet <strong>{flagshipCase.name}</strong> — an Employability Intelligence Platform
-                that maps real workplace readiness instead of static test scores.
-              </p>
-              <ul className="case-teaser-metrics">
-                {flagshipCase.metrics.map((m) => (
-                  <li key={m.label}><span className="pill">{m.label}</span></li>
-                ))}
-              </ul>
-              <Link to="/case-studies" className="btn btn-primary">
-                Read the case study <FiArrowUpRight />
+          <div className="section-head reveal">
+            <span className="eyebrow">Flagship Products</span>
+            <h2 className="h2">Where Ideas Gain Momentum.</h2>
+          </div>
+
+          <div className="grid case-showcase-grid">
+            {CASE_STUDIES.map((study, i) => (
+              <Link
+                to={`/case-studies#${study.slug}`}
+                className={`case-showcase-card reveal reveal-delay-${i + 1}`}
+                key={study.slug}
+              >
+                <div className="case-showcase-visual" aria-hidden="true">
+                  <div className="case-teaser-orb orb-sky" />
+                  <div className="case-teaser-orb orb-yellow" />
+                  <span className="case-showcase-mark">{study.mark}</span>
+                </div>
+                <span className="pill">{study.category}</span>
+                <h3>{study.name}</h3>
+                <p>{study.tagline}</p>
+                <span className="btn-text case-showcase-link">
+                  Read the case study <FiArrowUpRight className="arrow" />
+                </span>
               </Link>
-            </div>
-            <div className="case-teaser-visual" aria-hidden="true">
-              <div className="case-teaser-orb orb-sky" />
-              <div className="case-teaser-orb orb-yellow" />
-              <span className="case-teaser-mark">Z</span>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -173,7 +183,7 @@ export default function Home() {
       {/* ---------------- Final CTA ---------------- */}
       <section className="section final-cta-section">
         <div className="container">
-          <div className="final-cta card reveal">
+          <div className="final-cta card glass reveal">
             <span className="eyebrow" style={{ justifyContent: 'center' }}>Progress Starts Here</span>
             <h2 className="h2">Beyond Innovation. <span className="text-gradient">Into Impact.</span></h2>
             <p className="lead">Tell us what you're building — we'll tell you how fast we can help you ship it.</p>

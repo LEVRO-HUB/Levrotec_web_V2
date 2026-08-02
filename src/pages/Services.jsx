@@ -1,23 +1,28 @@
 import { Link } from 'react-router-dom'
 import { FiCheck, FiArrowRight } from 'react-icons/fi'
-import useDocumentTitle from '../hooks/useDocumentTitle.js'
+import SEO from '../components/SEO.jsx'
 import useReveal from '../hooks/useReveal.js'
 import { SERVICES } from '../data/services.js'
 import './Services.css'
 
 export default function Services() {
-  useDocumentTitle('Services')
   const scopeRef = useReveal()
 
   return (
     <div ref={scopeRef}>
+      <SEO
+        title="Services"
+        description="Explore Levrotec's SaaS development, MVP development, DevOps, IT consulting, digital marketing, web & mobile development, and product support services."
+        keywords="SaaS Development Company Chennai, MVP Development India, DevOps Services, IT Consulting Tamil Nadu, Digital Marketing, Custom Software Development"
+        path="/services"
+      />
       <section className="section services-hero">
         <div className="container">
           <div className="section-head center reveal">
             <span className="eyebrow" style={{ justifyContent: 'center' }}>What We Do</span>
             <h1 className="h1">Built for What's Possible.</h1>
             <p className="lead" style={{ margin: '18px auto 0' }}>
-              Six focused capabilities, one accountable team — from first prototype to
+              Seven focused capabilities, one accountable team — from first prototype to
               the infrastructure that keeps you running at scale.
             </p>
           </div>
@@ -30,7 +35,7 @@ export default function Services() {
             const Icon = service.icon
             const reversed = i % 2 === 1
             return (
-              <article className={`service-row ${reversed ? 'reversed' : ''} reveal`} key={service.id}>
+              <article className={`service-row ${reversed ? 'reversed' : ''} reveal`} key={service.slug}>
                 <div className="service-row-visual">
                   <div className="service-row-icon"><Icon /></div>
                 </div>
@@ -40,10 +45,16 @@ export default function Services() {
                   <p className="service-row-tagline">{service.tagline}</p>
                   <p className="service-row-desc">{service.description}</p>
                   <ul className="service-capabilities">
-                    {service.capabilities.map((cap) => (
+                    {service.benefits.map((cap) => (
                       <li key={cap}><FiCheck /> {cap}</li>
                     ))}
                   </ul>
+                  <div className="service-row-stack">
+                    {service.techStack.map((tech) => <span className="pill yellow" key={tech}>{tech}</span>)}
+                  </div>
+                  <Link to={`/services/${service.slug}`} className="btn btn-outline btn-sm">
+                    Explore {service.title} <FiArrowRight />
+                  </Link>
                 </div>
               </article>
             )
@@ -53,7 +64,7 @@ export default function Services() {
 
       <section className="section">
         <div className="container">
-          <div className="final-cta card reveal">
+          <div className="final-cta card glass reveal">
             <span className="eyebrow" style={{ justifyContent: 'center' }}>Powering the Next Move</span>
             <h2 className="h2">Not sure which service fits? <span className="text-gradient">Let's figure it out together.</span></h2>
             <div className="hero-actions" style={{ justifyContent: 'center', marginTop: '28px' }}>

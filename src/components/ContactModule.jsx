@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
-import { FiArrowRight, FiChevronLeft, FiChevronRight, FiCheckCircle } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
+import { FiArrowRight, FiChevronLeft, FiChevronRight, FiCheckCircle, FiPhone, FiMessageCircle } from 'react-icons/fi'
 import { CALL_HOST } from '../data/team.js'
+import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL, buildNotifyMailto } from '../data/contact.js'
 import './ContactModule.css'
 
 const WEEKDAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -33,7 +35,24 @@ function CallScheduler() {
   const [cursor, setCursor] = useState(new Date(today.getFullYear(), today.getMonth(), 1))
   const [selectedDate, setSelectedDate] = useState(null)
   const [selectedTime, setSelectedTime] = useState(null)
+  const [requester, setRequester] = useState({ name: '', email: '' })
   const [confirmed, setConfirmed] = useState(false)
+
+  const updateRequester = (key) => (e) => setRequester((r) => ({ ...r, [key]: e.target.value }))
+
+  const canConfirm = selectedDate && selectedTime && requester.name.trim() && requester.email.trim()
+
+  const handleConfirm = () => {
+    if (!canConfirm) return
+    const mailto = buildNotifyMailto('New Call Booking Request — Levrotec', [
+      `Requested by: ${requester.name} (${requester.email})`,
+      `Host: ${CALL_HOST.name} — ${CALL_HOST.role}`,
+      `Requested date: ${selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`,
+      `Requested time: ${selectedTime}`,
+    ])
+    window.location.href = mailto
+    setConfirmed(true)
+  }
 
   const cells = useMemo(() => buildCalendarCells(cursor), [cursor])
   const monthLabel = cursor.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
@@ -57,11 +76,11 @@ function CallScheduler() {
           <strong>{selectedDate?.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</strong> at{' '}
           <strong>{selectedTime}</strong>.
         </p>
-        <p className="scheduler-confirmed-note">A calendar invite would be sent to your email in a live environment.</p>
+        <p className="scheduler-confirmed-note">We've opened an email to our team with your request — send it to confirm, or we'll follow up directly.</p>
         <button
           type="button"
           className="btn btn-outline btn-sm"
-          onClick={() => { setConfirmed(false); setSelectedDate(null); setSelectedTime(null) }}
+          onClick={() => { setConfirmed(false); setSelectedDate(null); setSelectedTime(null); setRequester({ name: '', email: '' }) }}
         >
           Book another time
         </button>
@@ -137,11 +156,24 @@ function CallScheduler() {
         </div>
       )}
 
+      {selectedDate && selectedTime && (
+        <div className="field-row requester-fields">
+          <div className="field">
+            <label htmlFor="requesterName">Your Name*</label>
+            <input id="requesterName" type="text" value={requester.name} onChange={updateRequester('name')} placeholder="Jane Doe" />
+          </div>
+          <div className="field">
+            <label htmlFor="requesterEmail">Your Email*</label>
+            <input id="requesterEmail" type="email" value={requester.email} onChange={updateRequester('email')} placeholder="jane@company.com" />
+          </div>
+        </div>
+      )}
+
       <button
         type="button"
         className="btn btn-primary confirm-btn"
-        disabled={!selectedDate || !selectedTime}
-        onClick={() => setConfirmed(true)}
+        disabled={!canConfirm}
+        onClick={handleConfirm}
       >
         Confirm Booking
       </button>
@@ -163,6 +195,16 @@ function MessageForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!canSubmit) return
+    const mailto = buildNotifyMailto('New Website Enquiry — Levrotec', [
+      `Name: ${form.fullName}`,
+      `Email: ${form.email}`,
+      `Phone: ${form.phone || 'Not provided'}`,
+      `Needs NDA: ${form.nda === 'yes' ? 'Yes' : form.nda === 'no' ? 'No' : 'Not specified'}`,
+      '',
+      'Message:',
+      form.message,
+    ])
+    window.location.href = mailto
     setSubmitted(true)
   }
 
@@ -171,7 +213,7 @@ function MessageForm() {
       <div className="scheduler-confirmed">
         <FiCheckCircle className="confirmed-icon" />
         <h3>Message sent!</h3>
-        <p>Thanks for reaching out, {form.fullName.split(' ')[0] || 'there'}. Our team will get back to you within one business day.</p>
+        <p>Thanks for reaching out, {form.fullName.split(' ')[0] || 'there'}. We've opened an email to our team with your message — send it to confirm, and we'll get back to you within one business day.</p>
         <button
           type="button"
           className="btn btn-outline btn-sm"
@@ -224,7 +266,7 @@ function MessageForm() {
 
       <label className="checkbox-option">
         <input type="checkbox" checked={form.consent} onChange={update('consent')} required />
-        <span>I agree to the <a href="#privacy">Privacy Policy</a> and consent to being contacted by Levrotec.*</span>
+        <span>I agree to the <Link to="/privacy-policy" target="_blank">Privacy Policy</Link> and consent to being contacted by Levrotec.*</span>
       </label>
 
       <button type="submit" className="btn btn-primary submit-btn" disabled={!canSubmit}>
@@ -238,7 +280,7 @@ export default function ContactModule() {
   const [mode, setMode] = useState('call')
 
   return (
-    <div className="contact-module card">
+    <div className="contact-module card glass">
       <div className="contact-module-panel">
         {mode === 'call' ? <CallScheduler /> : <MessageForm />}
       </div>
@@ -253,6 +295,11 @@ export default function ContactModule() {
             Book a call <FiArrowRight className="arrow" />
           </button>
         )}
+      </div>
+
+      <div className="contact-module-quickline">
+        <a href={PHONE_TEL}><FiPhone /> {PHONE_DISPLAY}</a>
+        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer"><FiMessageCircle /> Chat on WhatsApp</a>
       </div>
     </div>
   )

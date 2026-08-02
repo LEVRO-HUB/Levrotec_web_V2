@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
-import useDocumentTitle from '../hooks/useDocumentTitle.js'
+import SEO from '../components/SEO.jsx'
 import useReveal from '../hooks/useReveal.js'
 import { TEAM } from '../data/team.js'
 import './About.css'
@@ -12,22 +12,40 @@ const VALUES = [
 ]
 
 export default function About() {
-  useDocumentTitle('About Us')
   const scopeRef = useReveal()
 
   return (
     <div ref={scopeRef}>
+      <SEO
+        title="About Us"
+        description="Levrotec is a Chennai-based product-driven software company founded by six operators building smart, scalable digital solutions for real business and educational challenges."
+        keywords="Levrotec founders, Chennai software company, Tamil Nadu tech startup, product-driven software company"
+        path="/about"
+      />
       <section className="section about-hero">
         <div className="container">
           <div className="section-head center reveal">
             <span className="eyebrow" style={{ justifyContent: 'center' }}>About Levrotec</span>
             <h1 className="h1">Six operators. <span className="text-gradient">One mission.</span></h1>
             <p className="lead" style={{ margin: '18px auto 0' }}>
-              Levrotec was founded by six people who got tired of watching great ideas
-              stall in translation between vision and execution. So we built the studio
-              that closes that gap.
+              Chennai-based, product-driven, and built by six people who got tired of
+              watching great ideas stall in translation between vision and execution.
             </p>
           </div>
+        </div>
+      </section>
+
+      <section className="section brand-story-section">
+        <div className="container">
+          <blockquote className="brand-story reveal">
+            Levrotec is a Chennai-based product-driven software company dedicated to
+            engineering smart, scalable digital solutions for real business and
+            educational challenges. Built with a vision to make high-tech accessible
+            and practical, we craft powerful SaaS platforms, enterprise systems, custom
+            software, and digital strategies that deliver tangible impact. From our
+            flagship exam intelligence suite <strong>Zaptude</strong> to high-performance
+            enterprise automation, we turn operational complexity into progress.
+          </blockquote>
         </div>
       </section>
 
@@ -76,7 +94,7 @@ export default function About() {
 
       <section className="section">
         <div className="container">
-          <div className="final-cta card reveal">
+          <div className="final-cta card glass reveal">
             <span className="eyebrow" style={{ justifyContent: 'center' }}>Progress Starts Here</span>
             <h2 className="h2">Want to build with us?</h2>
             <div className="hero-actions" style={{ justifyContent: 'center', marginTop: '28px' }}>

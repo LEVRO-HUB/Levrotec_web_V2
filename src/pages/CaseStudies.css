@@ -1,8 +1,57 @@
+.case-jump-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.case-jump-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px 10px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-medium);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all var(--dur-fast) var(--ease-smooth);
+}
+
+.case-jump-chip:hover {
+  border-color: var(--sky-400);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow-sky);
+}
+
+.case-jump-mark {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--gradient-brand);
+  color: var(--text-inverse);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.featured-case-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
 .featured-case {
   padding: clamp(32px, 5vw, 56px);
   border-radius: var(--radius-xl);
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
+  scroll-margin-top: calc(var(--nav-height) + 24px);
 }
 
 .featured-case-header {

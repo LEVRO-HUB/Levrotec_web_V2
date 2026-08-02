@@ -224,7 +224,16 @@ h1, h2, h3, h4, h5, h6 {
 .card:hover {
   transform: translateY(-6px);
   border-color: var(--border-strong);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-glow-neon);
+}
+
+/* Glassmorphism surface — frosted, translucent, for elevated modules
+   like the contact widget and callout banners. */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
 }
 
 .pill {
@@ -244,6 +253,12 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(250, 204, 21, 0.1);
   border-color: rgba(250, 204, 21, 0.3);
   color: var(--yellow-300);
+}
+
+.pill.silver {
+  background: rgba(226, 232, 240, 0.1);
+  border-color: rgba(226, 232, 240, 0.3);
+  color: var(--silver-300);
 }
 
 /* ==========================================================================

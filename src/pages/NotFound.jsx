@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom'
-import useDocumentTitle from '../hooks/useDocumentTitle.js'
+import { Helmet } from 'react-helmet-async'
+import SEO from '../components/SEO.jsx'
 import './NotFound.css'
 
 export default function NotFound() {
-  useDocumentTitle('Page Not Found')
-
   return (
     <section className="section not-found">
+      <SEO title="Page Not Found" />
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <div className="container not-found-inner">
         <span className="eyebrow">404</span>
         <h1 className="h1">This path doesn't exist. <span className="text-gradient">Yet.</span></h1>

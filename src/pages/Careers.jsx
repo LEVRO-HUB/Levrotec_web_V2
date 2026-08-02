@@ -1,25 +1,31 @@
 import { Link } from 'react-router-dom'
 import { FiMapPin, FiClock, FiArrowRight } from 'react-icons/fi'
-import useDocumentTitle from '../hooks/useDocumentTitle.js'
+import SEO from '../components/SEO.jsx'
 import useReveal from '../hooks/useReveal.js'
 import { CAREER_DEPARTMENTS } from '../data/careers.js'
 import './Careers.css'
 
 export default function Careers() {
-  useDocumentTitle('Careers')
   const scopeRef = useReveal()
   const openRoleCount = CAREER_DEPARTMENTS.reduce((sum, dept) => sum + dept.roles.length, 0)
 
   return (
     <div ref={scopeRef}>
+      <SEO
+        title="Careers"
+        description="Levrotec is hiring freshers and early-career professionals (0-2 years) across Engineering, Product, Marketing, and Operations in Chennai and remote."
+        keywords="freshers jobs Chennai, entry level software jobs Tamil Nadu, junior React developer jobs, junior Django developer jobs"
+        path="/careers"
+      />
       <section className="section careers-hero">
         <div className="container">
           <div className="section-head center reveal">
             <span className="eyebrow" style={{ justifyContent: 'center' }}>Careers at Levrotec</span>
             <h1 className="h1">Help Us Move <span className="text-gradient">Beyond Possible.</span></h1>
             <p className="lead" style={{ margin: '18px auto 0' }}>
-              We're a small, senior team that ships fast and owns outcomes. Currently
-              hiring across {CAREER_DEPARTMENTS.length} departments — {openRoleCount} open roles.
+              Built for freshers and early-career professionals (0–2 years) who want real
+              ownership from day one. Currently hiring across {CAREER_DEPARTMENTS.length} departments
+              — {openRoleCount} open roles.
             </p>
           </div>
         </div>
@@ -61,7 +67,7 @@ export default function Careers() {
 
       <section className="section">
         <div className="container">
-          <div className="final-cta card reveal">
+          <div className="final-cta card glass reveal">
             <span className="eyebrow" style={{ justifyContent: 'center' }}>Don't See Your Role?</span>
             <h2 className="h2">We're always looking for exceptional people.</h2>
             <p className="lead">Send us your background — we'll reach out when the right seat opens up.</p>

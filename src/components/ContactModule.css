@@ -27,6 +27,33 @@
   border-top: 1px solid var(--border-subtle);
 }
 
+.contact-module-quickline {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.contact-module-quickline a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color var(--dur-fast) var(--ease-smooth);
+}
+
+.contact-module-quickline a:hover {
+  color: var(--sky-300);
+}
+
+.requester-fields {
+  margin-top: 20px;
+}
+
 /* ---- Scheduler: host header ---- */
 .scheduler-host {
   display: flex;

@@ -1,7 +1,8 @@
 .orbit-system {
   position: relative;
-  width: clamp(300px, 42vw, 620px);
-  height: clamp(300px, 42vw, 620px);
+  width: clamp(260px, 46vw, 700px);
+  max-width: 100%;
+  aspect-ratio: 1;
   margin-inline: auto;
 }
 
@@ -20,22 +21,17 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(84px, 12vw, 132px);
-  height: clamp(84px, 12vw, 132px);
+  width: clamp(88px, 13vw, 140px);
+  height: clamp(88px, 13vw, 140px);
   border-radius: 28%;
   display: grid;
   place-items: center;
-  background: var(--gradient-brand);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15) inset, var(--shadow-glow-sky), var(--shadow-lg);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(56, 189, 248, 0.22), transparent 60%),
+    var(--bg-elevated);
+  border: 1px solid var(--border-medium);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset, var(--shadow-glow-sky), var(--shadow-lg);
   z-index: 5;
-}
-
-.orbit-center-letter {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(2.2rem, 4.4vw, 3.6rem);
-  color: var(--text-inverse);
-  letter-spacing: -0.03em;
 }
 
 .orbit-center-ping {
@@ -58,9 +54,10 @@
   z-index: 1;
 }
 
-.ring-1 { --radius: clamp(76px, 15vw, 150px); }
-.ring-2 { --radius: clamp(120px, 22vw, 230px); }
-.ring-3 { --radius: clamp(160px, 29vw, 300px); }
+.ring-1 { --radius: clamp(72px, 12vw, 125px); }
+.ring-2 { --radius: clamp(108px, 18vw, 195px); }
+.ring-3 { --radius: clamp(146px, 24vw, 265px); }
+.ring-4 { --radius: clamp(184px, 30vw, 335px); }
 
 .orbit-dashes {
   position: absolute;
@@ -147,5 +144,16 @@
 }
 
 @media (max-width: 640px) {
-  .ring-3 { --radius: clamp(140px, 40vw, 190px); }
+  .ring-3 { --radius: clamp(130px, 34vw, 175px); }
+  .ring-4 { --radius: clamp(155px, 42vw, 205px); }
+  .orbit-icon { --size: clamp(28px, 7vw, 44px); }
+}
+
+@media (max-width: 400px) {
+  .orbit-center { width: clamp(64px, 20vw, 80px); height: clamp(64px, 20vw, 80px); }
+  .ring-1 { --radius: clamp(46px, 17vw, 58px); }
+  .ring-2 { --radius: clamp(70px, 25vw, 86px); }
+  .ring-3 { --radius: clamp(90px, 31vw, 106px); }
+  .ring-4 { --radius: clamp(108px, 37vw, 126px); }
+  .orbit-icon { --size: clamp(24px, 6.5vw, 32px); }
 }
