@@ -21,8 +21,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(88px, 13vw, 140px);
-  height: clamp(88px, 13vw, 140px);
+  width: clamp(112px, 17vw, 182px);
+  height: clamp(112px, 17vw, 182px);
   padding: 3%;
   border-radius: 28%;
   display: grid;
@@ -55,7 +55,7 @@
   z-index: 1;
 }
 
-.ring-1 { --radius: clamp(72px, 12vw, 125px); }
+.ring-1 { --radius: clamp(84px, 13vw, 132px); }
 .ring-2 { --radius: clamp(108px, 18vw, 195px); }
 .ring-3 { --radius: clamp(146px, 24vw, 265px); }
 .ring-4 { --radius: clamp(184px, 30vw, 335px); }
@@ -151,10 +151,10 @@
 }
 
 @media (max-width: 400px) {
-  .orbit-center { width: clamp(64px, 20vw, 80px); height: clamp(64px, 20vw, 80px); }
-  .ring-1 { --radius: clamp(46px, 17vw, 58px); }
-  .ring-2 { --radius: clamp(70px, 25vw, 86px); }
-  .ring-3 { --radius: clamp(90px, 31vw, 106px); }
-  .ring-4 { --radius: clamp(108px, 37vw, 126px); }
+  .orbit-center { width: clamp(80px, 26vw, 100px); height: clamp(80px, 26vw, 100px); }
+  .ring-1 { --radius: clamp(56px, 20vw, 68px); }
+  .ring-2 { --radius: clamp(78px, 27vw, 92px); }
+  .ring-3 { --radius: clamp(96px, 33vw, 112px); }
+  .ring-4 { --radius: clamp(114px, 39vw, 132px); }
   .orbit-icon { --size: clamp(24px, 6.5vw, 32px); }
 }

@@ -129,44 +129,45 @@ export default function About() {
             {TEAM.map((member, i) => {
               const isFlipped = flipped.has(member.id)
               return (
-                <div
-                  className={`flip-card reveal reveal-delay-${(i % 3) + 1} ${isFlipped ? 'is-flipped' : ''}`}
-                  key={member.id}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`${member.name}, ${member.role}. Activate to flip for bio.`}
-                  onClick={() => toggleFlip(member.id)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault()
-                      toggleFlip(member.id)
-                    }
-                  }}
-                >
-                  <div className="flip-card-inner">
-                    <div className="flip-card-front">
-                      <div className="team-photo">
-                        {member.photo ? <img src={member.photo} alt={member.name} /> : <span>{member.initials}</span>}
+                <div className={`reveal reveal-delay-${(i % 3) + 1}`} key={member.id}>
+                  <div
+                    className={`flip-card ${isFlipped ? 'is-flipped' : ''}`}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`${member.name}, ${member.role}. Activate to flip for bio.`}
+                    onClick={() => toggleFlip(member.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        toggleFlip(member.id)
+                      }
+                    }}
+                  >
+                    <div className="flip-card-inner">
+                      <div className="flip-card-front">
+                        <div className="team-photo">
+                          {member.photo ? <img src={member.photo} alt={member.name} /> : <span>{member.initials}</span>}
+                        </div>
+                        <h3>{member.name}</h3>
+                        <span className="team-role">{member.role}</span>
+                        <div className="flip-card-accent" />
                       </div>
-                      <h3>{member.name}</h3>
-                      <span className="team-role">{member.role}</span>
-                      <div className="flip-card-accent" />
-                    </div>
-                    <div className="flip-card-back">
-                      <h3>{member.name}</h3>
-                      <p className="flip-back-bio">{member.bio}</p>
-                      <div className="team-focus">
-                        {member.focus.map((f) => <span className="pill" key={f}>{f}</span>)}
+                      <div className="flip-card-back">
+                        <h3>{member.name}</h3>
+                        <p className="flip-back-bio">{member.bio}</p>
+                        <div className="team-focus">
+                          {member.focus.map((f) => <span className="pill" key={f}>{f}</span>)}
+                        </div>
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="btn btn-outline btn-sm flip-linkedin-btn"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <FiLinkedin /> LinkedIn Profile
+                        </a>
                       </div>
-                      <a
-                        href={member.linkedin}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="btn btn-outline btn-sm flip-linkedin-btn"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <FiLinkedin /> LinkedIn Profile
-                      </a>
                     </div>
                   </div>
                 </div>
