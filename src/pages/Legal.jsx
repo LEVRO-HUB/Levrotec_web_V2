@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/SEO.jsx'
 import useReveal from '../hooks/useReveal.js'
 import { NOTIFY_EMAILS, PHONE_DISPLAY, PHONE_TEL } from '../data/contact.js'
-import './PrivacyPolicy.css'
+import './Legal.css'
 
 const LAST_UPDATED = 'August 2, 2026'
 
-export default function PrivacyPolicy() {
+export default function Legal() {
   const scopeRef = useReveal()
 
   return (

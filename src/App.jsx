@@ -11,7 +11,7 @@ import Technology from './pages/Technology.jsx'
 import Blog from './pages/Blog.jsx'
 import Careers from './pages/Careers.jsx'
 import Contact from './pages/Contact.jsx'
-import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
+import Legal from './pages/Legal.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 function ScrollToTop() {
@@ -45,7 +45,7 @@ export default function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/privacy-policy" element={<Legal />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
