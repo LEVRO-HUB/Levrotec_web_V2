@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiArrowRight, FiLinkedin } from 'react-icons/fi'
+import { FiArrowRight, FiLinkedin, FiImage } from 'react-icons/fi'
 import SEO from '../components/SEO.jsx'
 import useReveal from '../hooks/useReveal.js'
 import VerticalSlider from '../components/VerticalSlider.jsx'
-import { TEAM, GALLERY_PHOTOS } from '../data/team.js'
+import { TEAM } from '../data/team.js'
+import { GALLERY_IMAGES } from '../data/gallery.js'
 import './About.css'
 
 const VALUES = [
@@ -65,16 +66,18 @@ export default function About() {
         </div>
       </section>
 
-      {/* ---------------- Curved photo frame gallery ---------------- */}
-      <section className="section gallery-section">
-        <div className="container">
-          <div className="gallery-row">
-            {GALLERY_PHOTOS.map((g, i) => (
-              <div className={`gallery-frame ${i % 2 === 1 ? 'alt' : ''} reveal reveal-delay-${(i % 5) + 1}`} key={g.id}>
-                <img src={g.photo} alt={g.name} />
-              </div>
-            ))}
-          </div>
+      {/* ---------------- Auto-scrolling photo wall ---------------- */}
+      <section className="gallery-band">
+        <div className="gallery-track">
+          {[...GALLERY_IMAGES, ...GALLERY_IMAGES].map((g, i) => (
+            <div className="gallery-panel" key={`${g.id}-${i}`}>
+              {g.photo ? (
+                <img src={g.photo} alt={g.alt} />
+              ) : (
+                <div className="gallery-placeholder"><FiImage /></div>
+              )}
+            </div>
+          ))}
         </div>
       </section>
 

@@ -72,11 +72,3 @@ export const TEAM = [
 ]
 
 export const CALL_HOST = TEAM[0]
-
-// Photo subset used in the About page's curved hero gallery — team
-// members without a photo yet are naturally excluded.
-export const GALLERY_PHOTOS = TEAM.filter((m) => m.photo).map((m) => ({
-  id: m.id,
-  photo: m.photo,
-  name: m.name,
-}))
