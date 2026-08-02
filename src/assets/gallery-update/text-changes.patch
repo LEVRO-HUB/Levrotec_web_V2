@@ -1,0 +1,118 @@
+diff --git a/src/components/TechOrbit.css b/src/components/TechOrbit.css
+index 5933a3f..4b48752 100644
+--- a/src/components/TechOrbit.css
++++ b/src/components/TechOrbit.css
+@@ -23,7 +23,7 @@
+   transform: translate(-50%, -50%);
+   width: clamp(88px, 13vw, 140px);
+   height: clamp(88px, 13vw, 140px);
+-  padding: 9%;
++  padding: 3%;
+   border-radius: 28%;
+   display: grid;
+   place-items: center;
+diff --git a/src/data/gallery.js b/src/data/gallery.js
+index 0fd2dd2..4db6550 100644
+--- a/src/data/gallery.js
++++ b/src/data/gallery.js
+@@ -1,13 +1,20 @@
+-// Placeholder slots for the About page's auto-scrolling photo wall.
++// Slots for the About page's auto-scrolling photo wall.
+ // Drop workspace/team/culture photos in here once they're ready — import
+ // the image at the top of this file and set it as `photo` on the
+ // matching slot. Slots left as `photo: null` render a neutral gradient
+ // placeholder instead of a broken image.
++import team1a from '../assets/gallery/team-1a.jpg'
++import team1b from '../assets/gallery/team-1b.jpg'
++import team2a from '../assets/gallery/team-2a.jpg'
++import team2b from '../assets/gallery/team-2b.jpg'
++import team3a from '../assets/gallery/team-3a.jpg'
++import team3b from '../assets/gallery/team-3b.jpg'
++
+ export const GALLERY_IMAGES = [
+-  { id: 'g1', photo: null, alt: 'Levrotec workspace' },
+-  { id: 'g2', photo: null, alt: 'Levrotec team at work' },
+-  { id: 'g3', photo: null, alt: 'Levrotec office' },
+-  { id: 'g4', photo: null, alt: 'Levrotec team collaborating' },
+-  { id: 'g5', photo: null, alt: 'Levrotec culture' },
+-  { id: 'g6', photo: null, alt: 'Levrotec team meeting' },
++  { id: 'g1', photo: team1a, alt: 'Levrotec team' },
++  { id: 'g2', photo: team1b, alt: 'Levrotec team' },
++  { id: 'g3', photo: team2a, alt: 'Levrotec team celebrating a milestone' },
++  { id: 'g4', photo: team2b, alt: 'Levrotec team celebrating a milestone' },
++  { id: 'g5', photo: team3a, alt: 'Levrotec team together' },
++  { id: 'g6', photo: team3b, alt: 'Levrotec team together' },
+ ]
+diff --git a/src/pages/About.css b/src/pages/About.css
+index 5be8edd..8623187 100644
+--- a/src/pages/About.css
++++ b/src/pages/About.css
+@@ -1,10 +1,10 @@
+-/* ---------------- Auto-scrolling photo wall ---------------- */
++/* ---------------- Auto-scrolling curved photo wall ---------------- */
+ .gallery-band {
+   position: relative;
+   width: 100vw;
+   margin-left: calc(-50vw + 50%);
+   overflow: hidden;
+-  padding-block: 28px;
++  padding-block: 56px;
+   background: var(--bg-elevated);
+   border-block: 1px solid var(--border-subtle);
+ }
+@@ -12,9 +12,10 @@
+ .gallery-track {
+   display: flex;
+   align-items: center;
+-  gap: 18px;
++  gap: 8px;
+   width: max-content;
+-  animation: gallery-scroll 32s linear infinite;
++  animation: gallery-scroll 34s linear infinite;
++  will-change: transform;
+ }
+ 
+ .gallery-band:hover .gallery-track {
+@@ -31,18 +32,33 @@
+   flex-shrink: 0;
+   width: clamp(190px, 18vw, 260px);
+   height: clamp(280px, 28vw, 380px);
+-  border-radius: 22px;
+   overflow: hidden;
+-  border: 1px solid var(--border-subtle);
+-  box-shadow: var(--shadow-md);
++  box-shadow: var(--shadow-lg);
++  transition: transform 0.45s var(--ease-out-expo, ease);
+ }
+ 
+-.gallery-panel:nth-child(6n + 1) { transform: perspective(700px) rotateY(16deg); }
+-.gallery-panel:nth-child(6n + 2) { transform: perspective(700px) rotateY(-9deg); }
+-.gallery-panel:nth-child(6n + 3) { transform: perspective(700px) rotateY(5deg); }
+-.gallery-panel:nth-child(6n + 4) { transform: perspective(700px) rotateY(-5deg); }
+-.gallery-panel:nth-child(6n + 5) { transform: perspective(700px) rotateY(9deg); }
+-.gallery-panel:nth-child(6n + 6) { transform: perspective(700px) rotateY(-16deg); }
++/* Smooth curved / bowed panel edges, alternating direction to create
++   a flowing wave across the strip, with a gentle 3D tilt per panel */
++.gallery-panel:nth-child(4n + 1) {
++  clip-path: polygon(0% 9%, 25% 4%, 50% 1%, 75% 3%, 100% 7%, 100% 96%, 75% 100%, 50% 99%, 25% 97%, 0% 93%);
++  transform: translateY(-16px) perspective(900px) rotateY(9deg) rotateZ(-1.2deg);
++}
++.gallery-panel:nth-child(4n + 2) {
++  clip-path: polygon(0% 2%, 25% 5%, 50% 8%, 75% 6%, 100% 1%, 100% 90%, 75% 95%, 50% 99%, 25% 96%, 0% 92%);
++  transform: translateY(14px) perspective(900px) rotateY(-8deg) rotateZ(1.4deg);
++}
++.gallery-panel:nth-child(4n + 3) {
++  clip-path: polygon(0% 6%, 25% 2%, 50% 4%, 75% 1%, 100% 5%, 100% 93%, 75% 97%, 50% 100%, 25% 98%, 0% 95%);
++  transform: translateY(-6px) perspective(900px) rotateY(6deg) rotateZ(-0.8deg);
++}
++.gallery-panel:nth-child(4n + 4) {
++  clip-path: polygon(0% 4%, 25% 7%, 50% 2%, 75% 5%, 100% 3%, 100% 97%, 75% 94%, 50% 99%, 25% 95%, 0% 90%);
++  transform: translateY(10px) perspective(900px) rotateY(-6deg) rotateZ(0.8deg);
++}
++
++.gallery-band:hover .gallery-panel {
++  transform: translateY(0) perspective(900px) rotateY(0deg) rotateZ(0deg);
++}
+ 
+ .gallery-panel img {
+   width: 100%;
