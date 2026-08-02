@@ -68,16 +68,18 @@ export default function About() {
 
       {/* ---------------- Auto-scrolling photo wall ---------------- */}
       <section className="gallery-band">
-        <div className="gallery-track">
-          {[...GALLERY_IMAGES, ...GALLERY_IMAGES].map((g, i) => (
-            <div className="gallery-panel" key={`${g.id}-${i}`}>
-              {g.photo ? (
-                <img src={g.photo} alt={g.alt} />
-              ) : (
-                <div className="gallery-placeholder"><FiImage /></div>
-              )}
-            </div>
-          ))}
+        <div className="gallery-mask">
+          <div className="gallery-track">
+            {[...GALLERY_IMAGES, ...GALLERY_IMAGES].map((g, i) => (
+              <div className="gallery-panel" key={`${g.id}-${i}`}>
+                {g.photo ? (
+                  <img src={g.photo} alt={g.alt} />
+                ) : (
+                  <div className="gallery-placeholder"><FiImage /></div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

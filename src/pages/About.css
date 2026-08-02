@@ -4,15 +4,30 @@
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   overflow: hidden;
-  padding-block: 64px;
+  padding-block: 48px;
   background: var(--bg-elevated);
   border-block: 1px solid var(--border-subtle);
 }
 
+/* The arch lives here, as ONE continuous clip-path across the entire
+   row — not on individual cards. Cards inside stay fully rectangular
+   and level; the mask is what carves the smooth concave dip (high at
+   the outer edges, low in the middle). */
+.gallery-mask {
+  position: relative;
+  height: clamp(300px, 27vw, 380px);
+  overflow: hidden;
+  clip-path: polygon(
+    0% 0%, 12.5% 5%, 25% 12%, 37.5% 18%, 50% 21%, 62.5% 18%, 75% 12%, 87.5% 5%, 100% 0%,
+    100% 100%, 87.5% 95%, 75% 88%, 62.5% 82%, 50% 79%, 37.5% 82%, 25% 88%, 12.5% 95%, 0% 100%
+  );
+}
+
 .gallery-track {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
+  height: 100%;
   width: max-content;
   animation: gallery-scroll 34s linear infinite;
   will-change: transform;
@@ -31,23 +46,11 @@
   position: relative;
   flex-shrink: 0;
   width: clamp(180px, 15vw, 240px);
-  height: clamp(260px, 23vw, 320px);
-  border-radius: 20px;
+  height: 100%;
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow-lg);
-  transform: translateY(var(--arc-y, 0)) rotate(var(--arc-rot, 0deg));
 }
-
-/* Symmetrical concave arch: the outer two cards sit highest and tilt
-   most steeply toward the center; the middle two sit lowest and stay
-   almost flat, giving the whole row a gentle cylindrical "bowl" curve.
-   Repeats every 6 cards to match the 6-photo set. */
-.gallery-panel:nth-child(6n + 1) { --arc-y: 0px;   --arc-rot: 9deg; }
-.gallery-panel:nth-child(6n + 2) { --arc-y: -16px; --arc-rot: 4deg; }
-.gallery-panel:nth-child(6n + 3) { --arc-y: -24px; --arc-rot: 1deg; }
-.gallery-panel:nth-child(6n + 4) { --arc-y: -24px; --arc-rot: -1deg; }
-.gallery-panel:nth-child(6n + 5) { --arc-y: -16px; --arc-rot: -4deg; }
-.gallery-panel:nth-child(6n + 6) { --arc-y: 0px;   --arc-rot: -9deg; }
 
 .gallery-panel img {
   width: 100%;
@@ -81,10 +84,11 @@
 }
 
 @media (max-width: 640px) {
+  .gallery-mask {
+    height: clamp(210px, 56vw, 260px);
+  }
   .gallery-panel {
     width: clamp(130px, 34vw, 170px);
-    height: clamp(190px, 50vw, 240px);
-    border-radius: 16px;
   }
 }
 
