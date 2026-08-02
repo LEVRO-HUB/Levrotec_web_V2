@@ -163,7 +163,7 @@
 }
 
 .calendar-cell.is-available:hover {
-  background: rgba(56, 189, 248, 0.14);
+  background: rgba(0, 210, 255, 0.14);
   color: var(--sky-300);
 }
 
@@ -314,7 +314,7 @@
 .field textarea:focus {
   outline: none;
   border-color: var(--sky-400);
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+  box-shadow: 0 0 0 3px rgba(0, 210, 255, 0.15);
 }
 
 .radio-group {

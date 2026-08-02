@@ -65,37 +65,129 @@
   .ticker-track { animation: none; }
 }
 
-/* ---------------- Services teaser ---------------- */
-.services-teaser-grid {
-  grid-template-columns: repeat(3, 1fr);
+/* ---------------- What We Do: sticky stacked scroll ---------------- */
+.whatwedo-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 64px;
+  align-items: start;
 }
 
-.service-teaser-card {
+.whatwedo-sticky {
+  position: sticky;
+  top: calc(var(--nav-height) + 48px);
+}
+
+.whatwedo-sticky .lead {
+  margin: 18px 0 32px;
+}
+
+.whatwedo-stack {
   display: flex;
   flex-direction: column;
-  padding: 32px 28px;
+  gap: 24px;
 }
 
-.service-teaser-icon {
-  display: inline-grid;
+.whatwedo-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 32px;
+  min-height: 168px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-elevated) 100%);
+  border: 1px solid var(--border-subtle);
+  transition: transform var(--dur-base) var(--ease-out-expo), border-color var(--dur-base) var(--ease-smooth), box-shadow var(--dur-base) var(--ease-smooth);
+}
+
+.whatwedo-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-glow-neon);
+}
+
+.whatwedo-card-index {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--sky-400);
+  flex-shrink: 0;
+}
+
+.whatwedo-card-icon {
+  display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: var(--radius-md);
   background: var(--gradient-brand-soft);
   color: var(--sky-300);
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.whatwedo-card-copy h3 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.whatwedo-card-copy p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.whatwedo-card-arrow {
+  margin-left: auto;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform var(--dur-fast) var(--ease-smooth), color var(--dur-fast) var(--ease-smooth);
+}
+
+.whatwedo-card:hover .whatwedo-card-arrow {
+  transform: translateX(4px);
+  color: var(--sky-300);
+}
+
+/* ---------------- Why Levrotec ---------------- */
+.why-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.why-card {
+  padding: 32px 26px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  transition: transform var(--dur-base) var(--ease-out-expo), border-color var(--dur-base) var(--ease-smooth), box-shadow var(--dur-base) var(--ease-smooth);
+}
+
+.why-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-glow-neon);
+}
+
+.why-card-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: var(--gradient-brand-soft);
+  color: var(--sky-300);
+  font-size: 1.4rem;
   margin-bottom: 20px;
 }
 
-.service-teaser-card h3 {
-  font-size: 1.15rem;
+.why-card h3 {
+  font-size: 1.05rem;
   margin-bottom: 10px;
 }
 
-.service-teaser-card p {
+.why-card p {
   color: var(--text-secondary);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .section-cta {
@@ -179,30 +271,41 @@
 .case-showcase-card p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
 .case-showcase-link { margin-top: auto; }
 
-/* ---------------- Stats ---------------- */
-.stats-grid {
-  grid-template-columns: repeat(3, 1fr);
+/* ---------------- Creating Tomorrow's Advantage: vertical carousel ---------------- */
+.advantage-slider-wrap {
+  max-width: 720px;
+  margin-inline: auto;
+  --vslider-height: 260px;
 }
 
-.stat-card {
-  text-align: center;
-  padding: 36px 24px;
-  border-radius: var(--radius-lg);
+.advantage-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(32px, 5vw, 48px);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-elevated) 100%);
   border: 1px solid var(--border-subtle);
-  background: var(--bg-surface);
+  box-shadow: var(--shadow-lg);
 }
 
-.stat-value {
+.advantage-value {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 4vw, 3.2rem);
-  font-weight: 700;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 5vw, 3.6rem);
+  margin-bottom: 12px;
+}
+
+.advantage-card h3 {
+  font-size: 1.3rem;
   margin-bottom: 10px;
 }
 
-.stat-card p {
+.advantage-card p {
   color: var(--text-secondary);
-  font-size: 0.95rem;
+  max-width: 460px;
 }
 
 /* ---------------- Tech strip ---------------- */
@@ -264,12 +367,31 @@
   .hero-visual { order: 1; }
   .hero-lead { margin-inline: auto; }
   .hero-actions { justify-content: center; }
-  .services-teaser-grid { grid-template-columns: repeat(2, 1fr); }
   .case-showcase-grid { grid-template-columns: repeat(2, 1fr); }
-  .stats-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .whatwedo-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .whatwedo-sticky {
+    position: static;
+    text-align: center;
+  }
+  .whatwedo-sticky .lead {
+    margin-inline: auto;
+  }
 }
 
 @media (max-width: 640px) {
-  .services-teaser-grid { grid-template-columns: 1fr; }
   .case-showcase-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+
+  .whatwedo-card {
+    flex-wrap: wrap;
+    text-align: left;
+  }
+  .whatwedo-card-arrow {
+    display: none;
+  }
 }

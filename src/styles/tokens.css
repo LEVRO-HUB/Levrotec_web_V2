@@ -1,34 +1,35 @@
 /* ==========================================================================
    Levrotec Design Tokens
-   Palette: midnight navy base, sky blue + vibrant yellow accents
+   Palette: deep slate navy base, electric sky blue + yellow accents,
+   metallic silver highlights
    ========================================================================== */
 
 :root {
-  /* --- Base surfaces (dark slate / midnight navy) --- */
-  --bg-void: #05070f;
-  --bg-base: #070c1a;
-  --bg-elevated: #0c1428;
-  --bg-surface: #101b36;
-  --bg-surface-2: #152242;
-  --bg-surface-3: #1b2b52;
+  /* --- Base surfaces (deep slate navy) --- */
+  --bg-void: #05070c;
+  --bg-base: #0b0f19;
+  --bg-elevated: #10141f;
+  --bg-surface: #141a28;
+  --bg-surface-2: #1a2233;
+  --bg-surface-3: #212b40;
 
   /* --- Borders / dividers --- */
-  --border-subtle: rgba(148, 175, 255, 0.1);
-  --border-medium: rgba(148, 175, 255, 0.18);
-  --border-strong: rgba(148, 175, 255, 0.3);
+  --border-subtle: rgba(0, 210, 255, 0.12);
+  --border-medium: rgba(0, 210, 255, 0.22);
+  --border-strong: rgba(0, 210, 255, 0.36);
 
   /* --- Accent: Sky Blue --- */
-  --sky-100: #e0f4ff;
-  --sky-300: #7dd3fc;
-  --sky-400: #38bdf8;
-  --sky-500: #0ea5e9;
-  --sky-600: #0284c7;
+  --sky-100: #cdf6ff;
+  --sky-300: #4fe0ff;
+  --sky-400: #00d2ff;
+  --sky-500: #00a3c9;
+  --sky-600: #00748f;
 
-  /* --- Accent: Vibrant Yellow --- */
-  --yellow-200: #fef3b0;
-  --yellow-300: #fde047;
-  --yellow-400: #facc15;
-  --yellow-500: #eab308;
+  /* --- Accent: Electric Yellow --- */
+  --yellow-200: #fff9b0;
+  --yellow-300: #fff066;
+  --yellow-400: #ffe600;
+  --yellow-500: #ccb800;
 
   /* --- Accent: Metallic Silver --- */
   --silver-200: #f1f5f9;
@@ -44,21 +45,21 @@
 
   /* --- Gradients --- */
   --gradient-brand: linear-gradient(120deg, var(--sky-400) 0%, var(--sky-500) 45%, var(--yellow-400) 100%);
-  --gradient-brand-soft: linear-gradient(120deg, rgba(56, 189, 248, 0.16) 0%, rgba(250, 204, 21, 0.12) 100%);
+  --gradient-brand-soft: linear-gradient(120deg, rgba(0, 210, 255, 0.16) 0%, rgba(255, 230, 0, 0.12) 100%);
   --gradient-text: linear-gradient(95deg, var(--sky-300) 0%, var(--sky-400) 40%, var(--yellow-300) 100%);
-  --gradient-radial-glow: radial-gradient(circle at center, rgba(56, 189, 248, 0.22) 0%, rgba(56, 189, 248, 0) 70%);
-  --gradient-yellow-glow: radial-gradient(circle at center, rgba(250, 204, 21, 0.18) 0%, rgba(250, 204, 21, 0) 70%);
+  --gradient-radial-glow: radial-gradient(circle at center, rgba(0, 210, 255, 0.24) 0%, rgba(0, 210, 255, 0) 70%);
+  --gradient-yellow-glow: radial-gradient(circle at center, rgba(255, 230, 0, 0.18) 0%, rgba(255, 230, 0, 0) 70%);
 
   /* --- Shadows --- */
-  --shadow-sm: 0 2px 8px rgba(2, 6, 20, 0.4);
-  --shadow-md: 0 8px 30px rgba(2, 6, 20, 0.45);
-  --shadow-lg: 0 20px 60px rgba(2, 6, 20, 0.55);
-  --shadow-glow-sky: 0 0 40px rgba(56, 189, 248, 0.25);
-  --shadow-glow-yellow: 0 0 40px rgba(250, 204, 21, 0.2);
-  --shadow-glow-neon: 0 20px 60px rgba(2, 6, 20, 0.55), 0 0 0 1px rgba(148, 163, 184, 0.12), 0 0 32px rgba(56, 189, 248, 0.18), 0 0 20px rgba(250, 204, 21, 0.08);
+  --shadow-sm: 0 2px 8px rgba(1, 3, 8, 0.4);
+  --shadow-md: 0 8px 30px rgba(1, 3, 8, 0.45);
+  --shadow-lg: 0 20px 60px rgba(1, 3, 8, 0.55);
+  --shadow-glow-sky: 0 0 40px rgba(0, 210, 255, 0.28);
+  --shadow-glow-yellow: 0 0 40px rgba(255, 230, 0, 0.22);
+  --shadow-glow-neon: 0 20px 60px rgba(1, 3, 8, 0.55), 0 0 0 1px rgba(148, 163, 184, 0.12), 0 0 32px rgba(0, 210, 255, 0.2), 0 0 20px rgba(255, 230, 0, 0.1);
 
   /* --- Glassmorphism --- */
-  --glass-bg: rgba(16, 27, 54, 0.55);
+  --glass-bg: rgba(16, 22, 36, 0.55);
   --glass-border: rgba(226, 232, 240, 0.14);
   --glass-blur: blur(18px);
 

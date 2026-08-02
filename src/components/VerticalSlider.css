@@ -1,0 +1,123 @@
+.vslider {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 28px;
+}
+
+.vslider-stage {
+  position: relative;
+  height: var(--vslider-height, 300px);
+}
+
+.vslider-card {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+  transition: transform 0.55s var(--ease-out-expo), opacity 0.5s var(--ease-smooth), filter 0.5s var(--ease-smooth);
+  will-change: transform, opacity;
+}
+
+.vslider-active {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.vslider-prev {
+  transform: translateY(-28px) scale(0.93);
+  opacity: 0.32;
+  z-index: 2;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.vslider-next {
+  transform: translateY(28px) scale(0.93);
+  opacity: 0.32;
+  z-index: 2;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.vslider-hidden {
+  transform: translateY(0) scale(0.8);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.vslider-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.vslider-arrow {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--border-medium);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  transition: all var(--dur-fast) var(--ease-smooth);
+}
+
+.vslider-arrow:hover {
+  color: var(--text-inverse);
+  background: var(--gradient-brand);
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow-sky);
+}
+
+.vslider-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vslider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  transition: all var(--dur-fast) var(--ease-smooth);
+}
+
+.vslider-dot.is-active {
+  background: var(--gradient-brand);
+  height: 22px;
+}
+
+@media (max-width: 720px) {
+  .vslider {
+    grid-template-columns: 1fr;
+  }
+
+  .vslider-controls {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .vslider-dots {
+    flex-direction: row;
+  }
+
+  .vslider-dot.is-active {
+    height: 8px;
+    width: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vslider-card {
+    transition: opacity 0.3s;
+  }
+}

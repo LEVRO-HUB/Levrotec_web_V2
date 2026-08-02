@@ -1,0 +1,6 @@
+.levrotec-logo {
+  display: block;
+  object-fit: cover;
+  border-radius: 24%;
+  flex-shrink: 0;
+}

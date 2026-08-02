@@ -51,7 +51,7 @@ const RINGS = [
       { Icon: FaAws, name: 'AWS', color: '#ff9900' },
       { Icon: SiCloudflare, name: 'Cloudflare', color: '#f6821f' },
       { Icon: SiKubernetes, name: 'Kubernetes', color: '#326ce5' },
-      { Icon: TbBrain, name: 'AI Engine', color: '#38bdf8' },
+      { Icon: TbBrain, name: 'AI Engine', color: '#00d2ff' },
     ],
   },
 ]
@@ -102,7 +102,7 @@ export default function TechOrbit() {
         <OrbitRing ring={ring} index={i} key={ring.id} />
       ))}
       <div className="orbit-center">
-        <LevrotecLogo size="62%" title="Levrotec" />
+        <LevrotecLogo size="100%" title="Levrotec" />
         <div className="orbit-center-ping" />
       </div>
     </div>

@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
-import { FiArrowRight, FiArrowUpRight } from 'react-icons/fi'
+import { FiArrowRight, FiArrowUpRight, FiTarget, FiTrendingUp, FiCpu, FiUsers } from 'react-icons/fi'
 import SEO from '../components/SEO.jsx'
 import useReveal from '../hooks/useReveal.js'
 import TechOrbit from '../components/TechOrbit.jsx'
+import VerticalSlider from '../components/VerticalSlider.jsx'
 import { SERVICES } from '../data/services.js'
 import { TECH_CATEGORIES } from '../data/techstack.js'
 import { CASE_STUDIES } from '../data/caseStudies.js'
@@ -19,10 +20,35 @@ const TICKER_TAGLINES = [
   'Built to Move the World Forward.',
 ]
 
-const STATS = [
-  { value: '6', label: 'Founding operators building alongside every client' },
-  { value: '19+', label: 'Core technologies fluent across our stack' },
-  { value: '3', label: 'Flagship products shipped end-to-end' },
+const ADVANTAGE_CARDS = [
+  { value: '6', label: 'Founding Operators', desc: 'Every engagement is backed by direct oversight from our founding team — not a rotating account manager.' },
+  { value: '19+', label: 'Core Technologies', desc: 'A fluent, modern stack spanning frontend, backend, data, cloud, and AI — chosen for reliability, not resume trends.' },
+  { value: '3', label: 'Flagship Products', desc: 'Zaptude, Tabilo, and HireFlow — real platforms shipped end-to-end, not just prototypes.' },
+  { value: '100%', label: 'Founder-Led Delivery', desc: 'Every project is paired with a senior technical lead who stays accountable from kickoff to launch.' },
+  { value: '0 → 1', label: 'Idea to Production', desc: 'We specialize in taking ambiguous problems and shipping a working product fast, then scaling what works.' },
+]
+
+const WHY_LEVROTEC = [
+  {
+    icon: FiTarget,
+    title: 'Product-Engineered Precision',
+    desc: 'Custom software architecture designed around your real operational workflows — not generic templates.',
+  },
+  {
+    icon: FiTrendingUp,
+    title: 'Rapid MVP to Enterprise Scaling',
+    desc: 'Agile delivery cycles backed by modern, cloud-native tech stacks that grow with you from day one to scale.',
+  },
+  {
+    icon: FiCpu,
+    title: 'Data & AI-First Strategy',
+    desc: 'Intelligent automation and actionable analytics integrated into your core workflows, not bolted on after.',
+  },
+  {
+    icon: FiUsers,
+    title: 'Dedicated Founder-Led Support',
+    desc: 'Direct oversight from senior technology leaders and co-founders on every single engagement.',
+  },
 ]
 
 export default function Home() {
@@ -74,35 +100,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- Services teaser ---------------- */}
-      <section className="section">
-        <div className="container">
-          <div className="section-head reveal">
+      {/* ---------------- What We Do: sticky stacked scroll ---------------- */}
+      <section className="section whatwedo-section">
+        <div className="container whatwedo-grid">
+          <div className="whatwedo-sticky reveal">
             <span className="eyebrow">What We Do</span>
             <h2 className="h2">Built to Move the World Forward — <span className="text-gradient">one product at a time.</span></h2>
+            <p className="lead">
+              Seven focused capabilities, one accountable team. Scroll to see how we cover
+              the full lifecycle, from first prototype to the infrastructure that keeps you
+              running at scale.
+            </p>
+            <Link to="/services" className="btn btn-primary">
+              Explore all services <FiArrowRight />
+            </Link>
           </div>
 
-          <div className="grid services-teaser-grid">
+          <div className="whatwedo-stack">
             {SERVICES.map((service, i) => {
               const Icon = service.icon
               return (
-                <Link
-                  to={`/services/${service.slug}`}
-                  className={`card service-teaser-card reveal reveal-delay-${(i % 3) + 1}`}
-                  key={service.slug}
-                >
-                  <div className="service-teaser-icon"><Icon /></div>
-                  <h3>{service.title}</h3>
-                  <p>{service.tagline}</p>
+                <Link to={`/services/${service.slug}`} className="whatwedo-card reveal" key={service.slug}>
+                  <span className="whatwedo-card-index">{`0${i + 1}`}</span>
+                  <div className="whatwedo-card-icon"><Icon /></div>
+                  <div className="whatwedo-card-copy">
+                    <h3>{service.title}</h3>
+                    <p>{service.tagline}</p>
+                  </div>
+                  <FiArrowRight className="whatwedo-card-arrow" />
                 </Link>
               )
             })}
           </div>
+        </div>
+      </section>
 
-          <div className="section-cta reveal">
-            <Link to="/services" className="btn btn-text">
-              Explore all services <FiArrowRight className="arrow" />
-            </Link>
+      {/* ---------------- Why Levrotec ---------------- */}
+      <section className="section why-section">
+        <div className="container">
+          <div className="section-head center reveal">
+            <span className="eyebrow" style={{ justifyContent: 'center' }}>Why Levrotec</span>
+            <h2 className="h2">Why Choose <span className="text-gradient">Levrotec.</span></h2>
+          </div>
+          <div className="grid why-grid">
+            {WHY_LEVROTEC.map((item, i) => {
+              const Icon = item.icon
+              return (
+                <div className={`why-card reveal reveal-delay-${i + 1}`} key={item.title}>
+                  <div className="why-card-icon"><Icon /></div>
+                  <h3>{item.title}</h3>
+                  <p>{item.desc}</p>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -139,20 +189,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- Stats / momentum ---------------- */}
-      <section className="section stats-section">
+      {/* ---------------- Creating Tomorrow's Advantage: vertical carousel ---------------- */}
+      <section className="section advantage-section">
         <div className="container">
           <div className="section-head center reveal">
             <span className="eyebrow" style={{ justifyContent: 'center' }}>Creating Tomorrow's Advantage</span>
             <h2 className="h2">A studio built like a co-founder, not a vendor.</h2>
           </div>
-          <div className="grid stats-grid">
-            {STATS.map((stat, i) => (
-              <div className={`stat-card reveal reveal-delay-${i + 1}`} key={stat.label}>
-                <span className="stat-value text-gradient">{stat.value}</span>
-                <p>{stat.label}</p>
-              </div>
-            ))}
+          <div className="advantage-slider-wrap reveal">
+            <VerticalSlider
+              ariaLabel="Creating Tomorrow's Advantage metrics"
+              autoPlayMs={5000}
+              items={ADVANTAGE_CARDS.map((card) => (
+                <div className="advantage-card" key={card.label}>
+                  <span className="advantage-value text-gradient">{card.value}</span>
+                  <h3>{card.label}</h3>
+                  <p>{card.desc}</p>
+                </div>
+              ))}
+            />
           </div>
         </div>
       </section>

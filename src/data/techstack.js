@@ -60,7 +60,7 @@ export const TECH_CATEGORIES = [
     description: 'AI-assisted engineering and automation woven into how we build and ship.',
     items: [
       { name: 'Claude AI', Icon: SiAnthropic, color: '#d97757' },
-      { name: 'AI Engine', Icon: TbBrain, color: '#38bdf8' },
+      { name: 'AI Engine', Icon: TbBrain, color: '#00d2ff' },
     ],
   },
 ]

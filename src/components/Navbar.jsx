@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import { FiChevronDown, FiPhone, FiMessageCircle, FiLinkedin } from 'react-icons/fi'
+import { FiChevronDown } from 'react-icons/fi'
 import LevrotecLogo from './LevrotecLogo.jsx'
 import { SERVICES } from '../data/services.js'
-import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL, LINKEDIN_URL } from '../data/contact.js'
 import './Navbar.css'
 
 const LINKS = [
@@ -44,18 +43,6 @@ export default function Navbar() {
   return (
     <div className={`navbar-root ${open ? 'is-open' : ''}`}>
     <header className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
-      <div className="utility-bar">
-        <div className="container utility-bar-inner">
-          <div className="utility-bar-contact">
-            <a href={PHONE_TEL}><FiPhone /> {PHONE_DISPLAY}</a>
-            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer"><FiMessageCircle /> WhatsApp</a>
-          </div>
-          <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" aria-label="Levrotec on LinkedIn" className="utility-bar-linkedin">
-            <FiLinkedin />
-          </a>
-        </div>
-      </div>
-
       <div className="container navbar-inner">
         <Link to="/" className="brand" onClick={() => setOpen(false)}>
           <LevrotecLogo size={34} className="brand-mark" />
@@ -152,11 +139,6 @@ export default function Navbar() {
               {link.label}
             </NavLink>
           ))}
-
-          <div className="nav-mobile-contact">
-            <a href={PHONE_TEL}><FiPhone /> {PHONE_DISPLAY}</a>
-            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer"><FiMessageCircle /> WhatsApp Us</a>
-          </div>
 
           <Link to="/contact" className="btn btn-primary" onClick={() => setOpen(false)}>
             Let's Talk

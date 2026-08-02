@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
-import { FiArrowUpRight, FiLinkedin, FiTwitter, FiGithub, FiPhone, FiMessageCircle } from 'react-icons/fi'
+import { FiArrowUpRight, FiLinkedin, FiTwitter, FiGithub, FiPhone, FiMessageCircle, FiMail } from 'react-icons/fi'
 import LevrotecLogo from './LevrotecLogo.jsx'
-import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL, LINKEDIN_URL } from '../data/contact.js'
+import { PHONE_TEL, WHATSAPP_URL, LINKEDIN_URL, buildNotifyMailto } from '../data/contact.js'
 import './Footer.css'
+
+const EMAIL_MAILTO = buildNotifyMailto('Enquiry from Website', ['Hi Levrotec team,', '', ''])
 
 const COLUMNS = [
   {
@@ -47,9 +49,16 @@ export default function Footer() {
             <span className="brand-name">Levrotec</span>
           </Link>
           <p className="footer-tagline">Turn Possibility Into Progress.</p>
-          <div className="footer-contact">
-            <a href={PHONE_TEL}><FiPhone /> {PHONE_DISPLAY}</a>
-            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer"><FiMessageCircle /> WhatsApp Us</a>
+          <div className="footer-contact-buttons">
+            <a href={PHONE_TEL} className="footer-contact-btn">
+              <FiPhone /> Call Us
+            </a>
+            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="footer-contact-btn">
+              <FiMessageCircle /> Message on WhatsApp
+            </a>
+            <a href={EMAIL_MAILTO} className="footer-contact-btn">
+              <FiMail /> Email Us
+            </a>
           </div>
           <div className="footer-social">
             <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" aria-label="LinkedIn"><FiLinkedin /></a>

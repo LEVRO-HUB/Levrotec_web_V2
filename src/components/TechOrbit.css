@@ -23,11 +23,12 @@
   transform: translate(-50%, -50%);
   width: clamp(88px, 13vw, 140px);
   height: clamp(88px, 13vw, 140px);
+  padding: 9%;
   border-radius: 28%;
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at 32% 28%, rgba(56, 189, 248, 0.22), transparent 60%),
+    radial-gradient(circle at 32% 28%, rgba(0, 210, 255, 0.22), transparent 60%),
     var(--bg-elevated);
   border: 1px solid var(--border-medium);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset, var(--shadow-glow-sky), var(--shadow-lg);
@@ -38,7 +39,7 @@
   position: absolute;
   inset: -18px;
   border-radius: 32%;
-  border: 1.5px solid rgba(56, 189, 248, 0.5);
+  border: 1.5px solid rgba(0, 210, 255, 0.5);
   animation: orbit-ping 2.8s var(--ease-out-expo) infinite;
 }
 

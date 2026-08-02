@@ -4,7 +4,7 @@ const SITE_NAME = 'Levrotec'
 const SITE_URL = 'https://www.levrotec.com'
 const DEFAULT_DESCRIPTION = 'Levrotec is a Chennai-based product-driven software company engineering SaaS platforms, MVPs, and digital solutions for real business and educational challenges across Tamil Nadu, India, and globally.'
 const DEFAULT_KEYWORDS = 'Levrotec, SaaS Development Company Chennai, Custom Software Development Tamil Nadu, Educational Assessment Software India, Timetable Automation Software Anna University'
-const DEFAULT_IMAGE = `${SITE_URL}/favicon.svg`
+const DEFAULT_IMAGE = `${SITE_URL}/favicon.jpg`
 
 export default function SEO({ title, description, keywords, path = '/', image }) {
   const fullTitle = title ? `${title} — ${SITE_NAME}` : `${SITE_NAME} — Turn Possibility Into Progress`
