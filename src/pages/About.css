@@ -11,7 +11,7 @@
 
 .gallery-track {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 0;
   width: max-content;
   animation: gallery-scroll 34s linear infinite;
@@ -31,43 +31,35 @@
   position: relative;
   flex-shrink: 0;
   width: clamp(190px, 17vw, 262px);
-  height: clamp(340px, 32vw, 460px);
+  height: clamp(420px, 38vw, 560px);
   overflow: hidden;
-  transform: skewY(var(--panel-skew, 0deg));
-  z-index: 1;
+  clip-path: polygon(0% var(--top-l), 100% var(--top-r), 100% var(--bot-r), 0% var(--bot-l));
 }
 
-/* Each panel skews the opposite way from a straight rectangle so the
-   shared edges between panels line up into one continuous zig-zag —
-   the "fanned card" look, with the skew value varying per panel so
-   the wave feels organic rather than mechanically alternating. */
-.gallery-panel:nth-child(5n + 1) { --panel-skew: -7deg; }
-.gallery-panel:nth-child(5n + 2) { --panel-skew: 6deg; }
-.gallery-panel:nth-child(5n + 3) { --panel-skew: -4deg; }
-.gallery-panel:nth-child(5n + 4) { --panel-skew: 8deg; }
-.gallery-panel:nth-child(5n + 5) { --panel-skew: -9deg; }
+/* Left/right edges stay perfectly vertical — only the top and bottom
+   edges are cut on a diagonal. Each panel's corner values match its
+   neighbor's touching corner so the diagonal cuts line up into one
+   continuous zig-zag running across the whole strip. */
+.gallery-panel:nth-child(5n + 1) { --top-l: 0%;  --top-r: 7%;  --bot-l: 100%; --bot-r: 92%; }
+.gallery-panel:nth-child(5n + 2) { --top-l: 7%;  --top-r: 1%;  --bot-l: 92%;  --bot-r: 100%; }
+.gallery-panel:nth-child(5n + 3) { --top-l: 1%;  --top-r: 9%;  --bot-l: 100%; --bot-r: 90%; }
+.gallery-panel:nth-child(5n + 4) { --top-l: 9%;  --top-r: 2%;  --bot-l: 90%;  --bot-r: 97%; }
+.gallery-panel:nth-child(5n + 5) { --top-l: 2%;  --top-r: 11%; --bot-l: 97%;  --bot-r: 88%; }
 
 .gallery-panel img {
-  position: absolute;
-  top: -22%;
-  left: -12%;
-  width: 124%;
-  height: 148%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  transform: skewY(calc(var(--panel-skew, 0deg) * -1));
 }
 
 .gallery-placeholder {
-  position: absolute;
-  inset: -25% -15%;
-  width: 130%;
-  height: 150%;
+  width: 100%;
+  height: 100%;
   display: grid;
   place-items: center;
   background: linear-gradient(160deg, var(--bg-surface-2) 0%, var(--bg-elevated) 100%);
   color: var(--text-muted);
   font-size: 2rem;
-  transform: skewY(calc(var(--panel-skew, 0deg) * -1));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -77,7 +69,7 @@
 @media (max-width: 640px) {
   .gallery-panel {
     width: clamp(140px, 40vw, 190px);
-    height: clamp(200px, 56vw, 280px);
+    height: clamp(300px, 62vw, 380px);
   }
 }
 
