@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { FiArrowRight, FiChevronLeft, FiChevronRight, FiCheckCircle, FiPhone, FiMessageCircle } from 'react-icons/fi'
 import { CALL_HOST } from '../data/team.js'
 import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL, buildNotifyMailto } from '../data/contact.js'
+import { CATEGORY, classifyMessage, subjectFor } from '../data/classify.js'
 import './ContactModule.css'
 
 const WEEKDAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -44,7 +45,7 @@ function CallScheduler() {
 
   const handleConfirm = () => {
     if (!canConfirm) return
-    const mailto = buildNotifyMailto('New Call Booking Request — Levrotec', [
+    const mailto = buildNotifyMailto(subjectFor(CATEGORY.ENQUIRY, 'New Call Booking Request — Levrotec'), [
       `Requested by: ${requester.name} (${requester.email})`,
       `Host: ${CALL_HOST.name} — ${CALL_HOST.role}`,
       `Requested date: ${selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`,
@@ -182,6 +183,10 @@ function CallScheduler() {
 }
 
 function MessageForm() {
+  // Careers "Apply now" links arrive as /contact?topic=job&role=<title>.
+  const [params] = useSearchParams()
+  const jobHint = params.get('topic') === 'job'
+  const applyRole = jobHint ? params.get('role') : null
   const [form, setForm] = useState({ fullName: '', email: '', phone: '', message: '', nda: '', consent: false })
   const [submitted, setSubmitted] = useState(false)
 
@@ -195,7 +200,11 @@ function MessageForm() {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!canSubmit) return
-    const mailto = buildNotifyMailto('New Website Enquiry — Levrotec', [
+    const category = classifyMessage(form.message, { jobHint })
+    const base = category === CATEGORY.JOB ? 'New Job Application — Levrotec' : 'New Website Enquiry — Levrotec'
+    const mailto = buildNotifyMailto(subjectFor(category, base), [
+      `Category: ${category}`,
+      ...(applyRole ? [`Applying for: ${applyRole}`] : []),
       `Name: ${form.fullName}`,
       `Email: ${form.email}`,
       `Phone: ${form.phone || 'Not provided'}`,

@@ -7,6 +7,7 @@ import Services from './pages/Services.jsx'
 import ServiceDetail from './pages/ServiceDetail.jsx'
 import CaseStudies from './pages/CaseStudies.jsx'
 import About from './pages/About.jsx'
+import TeamProfile from './pages/TeamProfile.jsx'
 import Technology from './pages/Technology.jsx'
 import Blog from './pages/Blog.jsx'
 import Careers from './pages/Careers.jsx'
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/about" element={<About />} />
+          <Route path="/team/:slug" element={<TeamProfile />} />
           <Route path="/technology" element={<Technology />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/careers" element={<Careers />} />

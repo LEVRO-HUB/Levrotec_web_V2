@@ -54,7 +54,7 @@ export default function Careers() {
                     <ul className="career-role-criteria">
                       {role.criteria.map((c) => <li key={c}>{c}</li>)}
                     </ul>
-                    <Link to="/contact" className="btn btn-outline btn-sm">
+                    <Link to={`/contact?topic=job&role=${encodeURIComponent(role.title)}`} className="btn btn-outline btn-sm">
                       Apply now <FiArrowRight />
                     </Link>
                   </div>
@@ -72,7 +72,7 @@ export default function Careers() {
             <h2 className="h2">We're always looking for exceptional people.</h2>
             <p className="lead">Send us your background — we'll reach out when the right seat opens up.</p>
             <div className="hero-actions" style={{ justifyContent: 'center', marginTop: '10px' }}>
-              <Link to="/contact" className="btn btn-primary">Get in touch <FiArrowRight /></Link>
+              <Link to="/contact?topic=job" className="btn btn-primary">Get in touch <FiArrowRight /></Link>
             </div>
           </div>
         </div>
