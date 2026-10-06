@@ -1,4 +1,5 @@
 import SEO from '../components/SEO.jsx'
+import { PAGE_SEO } from '../seo/seo.js'
 import useReveal from '../hooks/useReveal.js'
 import ContactModule from '../components/ContactModule.jsx'
 import './Contact.css'
@@ -8,12 +9,7 @@ export default function Contact() {
 
   return (
     <div ref={scopeRef}>
-      <SEO
-        title="Contact Us"
-        description="Book a call or send a message to Levrotec — a Chennai-based SaaS development company. Reach us by phone, WhatsApp, or our contact form."
-        keywords="contact Levrotec, book a call, SaaS development enquiry Chennai"
-        path="/contact"
-      />
+      <SEO {...PAGE_SEO.contact} />
       <section className="section contact-hero">
         <div className="container">
           <div className="section-head center reveal">

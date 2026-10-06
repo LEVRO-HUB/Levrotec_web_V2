@@ -3,7 +3,8 @@ import react from '@vitejs/plugin-react'
 import fs from 'node:fs'
 import path from 'node:path'
 import { TEAM } from './src/data/teamData.js'
-import { aboutSeo, personSeo, personPath, renderHeadTags, sitemapEntries, absUrl } from './src/seo/seo.js'
+import { SERVICES } from './src/data/services.js'
+import { PAGE_SEO, serviceSeo, aboutSeo, personSeo, personPath, renderHeadTags, sitemapEntries, absUrl } from './src/seo/seo.js'
 
 // Build-time SEO: for every profile page (and /about) write a copy of
 // index.html whose <head> already carries the final title, description,
@@ -36,6 +37,14 @@ function seoPrerender() {
 
       write('about', aboutSeo())
       TEAM.forEach((m) => write(personPath(m).slice(1), personSeo(m)))
+
+      // Every other public route gets its own static head too, so crawlers see
+      // the right title / description / canonical before JavaScript runs. The
+      // homepage ('/') is the shell itself and already carries its own head.
+      Object.values(PAGE_SEO)
+        .filter((seo) => seo.path !== '/')
+        .forEach((seo) => write(seo.path.slice(1), seo))
+      SERVICES.forEach((service) => { const seo = serviceSeo(service); write(seo.path.slice(1), seo) })
 
       // Service slugs are parsed from the data file (it imports React icons, so
       // it can't be loaded in plain Node).

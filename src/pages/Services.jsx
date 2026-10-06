@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { FiCheck, FiArrowRight } from 'react-icons/fi'
 import SEO from '../components/SEO.jsx'
+import { PAGE_SEO } from '../seo/seo.js'
 import useReveal from '../hooks/useReveal.js'
 import { SERVICES } from '../data/services.js'
 import './Services.css'
@@ -10,12 +11,7 @@ export default function Services() {
 
   return (
     <div ref={scopeRef}>
-      <SEO
-        title="Services"
-        description="Explore Levrotec's SaaS development, MVP development, DevOps, IT consulting, digital marketing, web & mobile development, and product support services."
-        keywords="SaaS Development Company Chennai, MVP Development India, DevOps Services, IT Consulting Tamil Nadu, Digital Marketing, Custom Software Development"
-        path="/services"
-      />
+      <SEO {...PAGE_SEO.services} />
       <section className="section services-hero">
         <div className="container">
           <div className="section-head center reveal">

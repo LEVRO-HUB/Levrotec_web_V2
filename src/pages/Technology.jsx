@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
 import SEO from '../components/SEO.jsx'
+import { PAGE_SEO } from '../seo/seo.js'
 import useReveal from '../hooks/useReveal.js'
 import { TECH_CATEGORIES } from '../data/techstack.js'
 import './Technology.css'
@@ -10,12 +11,7 @@ export default function Technology() {
 
   return (
     <div ref={scopeRef}>
-      <SEO
-        title="Technology"
-        description="Levrotec's technology matrix: React, Flutter, Node.js, Python, Django, FastAPI, PostgreSQL, MongoDB, Redis, AWS, Cloudflare, Kubernetes, and Claude AI."
-        keywords="React development, Django development, AWS Kubernetes Chennai, Claude AI integration, custom software stack"
-        path="/technology"
-      />
+      <SEO {...PAGE_SEO.technology} />
       <section className="section technology-hero">
         <div className="container">
           <div className="section-head center reveal">

@@ -285,6 +285,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0; /* let inputs shrink inside .field-row on very narrow screens */
 }
 
 .field label,
@@ -292,6 +293,49 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-secondary);
+}
+
+.field-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ---- Purpose selection (Job Application / General Enquiry) ---- */
+.purpose-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.purpose-option {
+  padding: 14px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-medium);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all var(--dur-fast) var(--ease-smooth);
+}
+
+.purpose-option:hover {
+  border-color: var(--sky-400);
+  color: var(--text-primary);
+}
+
+.purpose-option:focus-visible {
+  outline: none;
+  border-color: var(--sky-400);
+  box-shadow: 0 0 0 3px rgba(0, 210, 255, 0.15);
+}
+
+.purpose-option.is-selected {
+  background: var(--gradient-brand);
+  border-color: transparent;
+  color: var(--text-inverse);
+}
+
+.purpose-fields {
+  animation: panel-fade 0.35s var(--ease-out-expo);
 }
 
 .field input,
@@ -366,5 +410,11 @@
   }
   .time-slots-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 380px) {
+  .purpose-options {
+    grid-template-columns: 1fr;
   }
 }

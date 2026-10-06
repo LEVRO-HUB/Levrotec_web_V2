@@ -1,6 +1,7 @@
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { FiCheck, FiArrowRight, FiArrowUpRight } from 'react-icons/fi'
 import SEO from '../components/SEO.jsx'
+import { serviceSeo } from '../seo/seo.js'
 import useReveal from '../hooks/useReveal.js'
 import { getServiceBySlug } from '../data/services.js'
 import { getCaseStudyBySlug } from '../data/caseStudies.js'
@@ -18,12 +19,7 @@ export default function ServiceDetail() {
 
   return (
     <div ref={scopeRef} key={slug}>
-      <SEO
-        title={service.title}
-        description={service.description}
-        keywords={`${service.title}, ${service.techStack.join(', ')}, Levrotec, Chennai`}
-        path={`/services/${service.slug}`}
-      />
+      <SEO {...serviceSeo(service)} />
       <section className="section service-detail-hero">
         <div className="container service-detail-hero-inner">
           <div className="reveal">

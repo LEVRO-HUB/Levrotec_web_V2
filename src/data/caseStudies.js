@@ -101,6 +101,52 @@ export const CASE_STUDIES = [
       author: 'Recruitment Operations Manager',
     },
   },
+  {
+    // Levrotec's own product initiative — not a client engagement. It is still
+    // being built, so `results` describes status and direction (no outcome
+    // figures) and `quote` carries our product vision rather than a testimonial.
+    id: 'hospitality-channel-manager',
+    slug: 'hospitality-channel-manager',
+    name: 'Hospitality Channel Manager',
+    mark: 'C',
+    client: 'Levrotec (in-house product)',
+    tagline: 'Building a smarter, centralized distribution platform for modern hospitality businesses.',
+    category: 'Levrotec Product · Hospitality Tech',
+    status: 'In Development',
+    year: '2026',
+    featured: true,
+    summary:
+      'Our own hospitality technology product, currently in development: a customized channel manager that connects a property\'s central booking and inventory system with the OTAs and channels it sells on — so every channel works from the same availability.',
+    problem:
+      'Hotels sell the same rooms across several channels at once. When each channel holds its own copy of availability, a booking on one is not reflected on the others quickly enough — and the last room can be sold twice. Teams end up updating extranets by hand, reconciling reservations across systems, and absorbing the cost of every double booking.',
+    solution:
+      'We are building a central inventory and reservation core with an integration layer around it. Every booking — direct or from an OTA — lands in one place, room-type availability is recalculated there, and the change is pushed out to every other connected channel. Internal room types are mapped to each channel\'s listings, and hospitality workflows are customized per property rather than forced into a generic template.',
+    metricsTitle: 'Core Capabilities',
+    metrics: [
+      { label: 'Centralized Inventory', description: 'One room-type based availability record for the property, shared by every channel instead of copied into each.' },
+      { label: 'Central Master Calendar', description: 'A single calendar view of availability and reservations across room types and dates.' },
+      { label: 'Reservation Management', description: 'Direct and channel bookings handled in one centralized booking flow.' },
+      { label: 'Two-Way Channel Sync', description: 'Inbound OTA bookings are captured centrally; availability changes are synchronized outbound to connected channels.' },
+      { label: 'Room-Type Mapping', description: 'Internal room types and listings mapped to their counterparts on each OTA.' },
+      { label: 'OTA Integration Layer', description: 'Designed for Booking.com, Agoda, Expedia and Airbnb, plus a SiteMinder / channel-manager integration layer.' },
+    ],
+    flowTitle: 'How It Works',
+    flow: [
+      { label: '01 · A booking arrives', description: 'A hotel has 4 Deluxe rooms listed on Booking.com and Airbnb. The last available one is booked through Airbnb.' },
+      { label: '02 · Central inventory updates', description: 'The channel manager records the reservation and Deluxe availability in the central inventory becomes 0.' },
+      { label: '03 · Other channels sync', description: 'The new availability is pushed to Booking.com, so the room can no longer be sold there.' },
+    ],
+    stack: ['Central Inventory Core', 'OTA Adapter Layer', 'Inbound Booking Handling', 'Outbound Sync', 'Mock / Simulation Mode'],
+    results: [
+      { value: 'In Development', label: 'a Levrotec product initiative — not yet a released product' },
+      { value: 'Simulation First', label: 'channel flows run in mock mode today; real OTA integrations are planned as the product evolves' },
+      { value: 'Multi-Property', label: 'support for multiple properties, listings and channel connections is on the roadmap' },
+    ],
+    quote: {
+      text: 'One booking, one source of truth — every connected channel updated before the same room can be sold twice.',
+      author: 'Levrotec — product vision',
+    },
+  },
 ]
 
 export function getCaseStudyBySlug(slug) {

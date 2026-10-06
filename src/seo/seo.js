@@ -139,6 +139,69 @@ export function aboutSeo() {
 }
 
 /* ------------------------------------------------------------------ */
+/* Static pages — one record per route, used by the page's <SEO /> at */
+/* runtime AND by the build-time prerender, so the two never drift.   */
+/* ------------------------------------------------------------------ */
+
+export const PAGE_SEO = {
+  home: {
+    description: 'Levrotec is a Chennai-based SaaS development company building custom software, MVPs, and educational assessment platforms for businesses across Tamil Nadu, India, and globally.',
+    keywords: 'Levrotec, SaaS Development Company Chennai, Custom Software Development Tamil Nadu, Educational Assessment Software India, Timetable Automation Software Anna University, MVP Development',
+    path: '/',
+  },
+  services: {
+    title: 'Services',
+    description: "Explore Levrotec's SaaS development, MVP development, DevOps, IT consulting, digital marketing, web & mobile development, and product support services.",
+    keywords: 'SaaS Development Company Chennai, MVP Development India, DevOps Services, IT Consulting Tamil Nadu, Digital Marketing, Custom Software Development',
+    path: '/services',
+  },
+  caseStudies: {
+    title: 'Case Studies',
+    description: 'See how Levrotec built Zaptude (Employability Intelligence Platform), Tabilo (Anna University timetable automation software), and HireFlow (recruitment assessment platform) — plus the Hospitality Channel Manager, our own hotel distribution product currently in development.',
+    keywords: 'Educational Assessment Software India, Timetable Automation Software Anna University, Zaptude, Tabilo, HireFlow, Hospitality Channel Manager, hotel channel manager, Levrotec case studies',
+    path: '/case-studies',
+  },
+  technology: {
+    title: 'Technology',
+    description: "Levrotec's technology matrix: React, Flutter, Node.js, Python, Django, FastAPI, PostgreSQL, MongoDB, Redis, AWS, Cloudflare, Kubernetes, and Claude AI.",
+    keywords: 'React development, Django development, AWS Kubernetes Chennai, Claude AI integration, custom software stack',
+    path: '/technology',
+  },
+  blog: {
+    title: 'Blog',
+    description: 'Notes from Levrotec on modern software delivery, scaling MVPs, and optimizing DevOps pipelines.',
+    keywords: 'software delivery blog, MVP scaling, DevOps pipeline optimization, Levrotec engineering',
+    path: '/blog',
+  },
+  careers: {
+    title: 'Careers',
+    description: 'Levrotec is hiring freshers and early-career professionals (0-2 years) across Engineering, Product, Marketing, and Operations in Chennai and remote.',
+    keywords: 'freshers jobs Chennai, entry level software jobs Tamil Nadu, junior React developer jobs, junior Django developer jobs',
+    path: '/careers',
+  },
+  contact: {
+    title: 'Contact Us',
+    description: 'Book a call or send a message to Levrotec — a Chennai-based SaaS development company. Reach us by phone, WhatsApp, or our contact form.',
+    keywords: 'contact Levrotec, book a call, SaaS development enquiry Chennai',
+    path: '/contact',
+  },
+  privacyPolicy: {
+    title: 'Privacy Policy',
+    description: "Levrotec's Privacy Policy — how we collect, use, and protect your data, covering GDPR and the Indian Information Technology Act, 2000.",
+    keywords: 'Levrotec privacy policy, GDPR compliance India, IT Act 2000 data protection',
+    path: '/privacy-policy',
+  },
+}
+
+/** /services/<slug> — derived from the service record in src/data/services.js. */
+export const serviceSeo = (service) => ({
+  title: service.title,
+  description: service.description,
+  keywords: `${service.title}, ${service.techStack.join(', ')}, Levrotec, Chennai`,
+  path: `/services/${service.slug}`,
+})
+
+/* ------------------------------------------------------------------ */
 /* Resolution + head rendering (shared by React and the build plugin) */
 /* ------------------------------------------------------------------ */
 

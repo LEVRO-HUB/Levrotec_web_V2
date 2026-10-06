@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { FiArrowRight, FiArrowUpRight, FiTarget, FiTrendingUp, FiCpu, FiUsers } from 'react-icons/fi'
 import SEO from '../components/SEO.jsx'
+import { PAGE_SEO } from '../seo/seo.js'
 import useReveal from '../hooks/useReveal.js'
 import TechOrbit from '../components/TechOrbit.jsx'
 import VerticalSlider from '../components/VerticalSlider.jsx'
@@ -56,11 +57,7 @@ export default function Home() {
 
   return (
     <div ref={scopeRef}>
-      <SEO
-        description="Levrotec is a Chennai-based SaaS development company building custom software, MVPs, and educational assessment platforms for businesses across Tamil Nadu, India, and globally."
-        keywords="Levrotec, SaaS Development Company Chennai, Custom Software Development Tamil Nadu, Educational Assessment Software India, Timetable Automation Software Anna University, MVP Development"
-        path="/"
-      />
+      <SEO {...PAGE_SEO.home} />
       {/* ---------------- Hero ---------------- */}
       <section className="hero section">
         <div className="container hero-grid">

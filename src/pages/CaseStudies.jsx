@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
 import SEO from '../components/SEO.jsx'
+import { PAGE_SEO } from '../seo/seo.js'
 import useReveal from '../hooks/useReveal.js'
 import { CASE_STUDIES } from '../data/caseStudies.js'
 import './CaseStudies.css'
@@ -12,6 +13,7 @@ function FeaturedCaseStudy({ study }) {
         <div className="featured-case-mark" aria-hidden="true">{study.mark ?? study.name.charAt(0)}</div>
         <div>
           <span className="pill">{study.category}</span>
+          {study.status && <span className="pill yellow">{study.status}</span>}
           <h2 className="h2">{study.name}</h2>
           <p className="featured-case-tagline">{study.tagline}</p>
         </div>
@@ -31,7 +33,7 @@ function FeaturedCaseStudy({ study }) {
       </div>
 
       <div className="featured-case-metrics">
-        <h3 className="h3">Diagnostic Intelligence Metrics</h3>
+        <h3 className="h3">{study.metricsTitle ?? 'Diagnostic Intelligence Metrics'}</h3>
         <div className="metrics-grid">
           {study.metrics.map((m) => (
             <div className="metric-card" key={m.label}>
@@ -41,6 +43,20 @@ function FeaturedCaseStudy({ study }) {
           ))}
         </div>
       </div>
+
+      {study.flow && (
+        <div className="featured-case-metrics">
+          <h3 className="h3">{study.flowTitle ?? 'How It Works'}</h3>
+          <div className="metrics-grid">
+            {study.flow.map((step) => (
+              <div className="metric-card" key={step.label}>
+                <span className="metric-label">{step.label}</span>
+                <p>{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="featured-case-results">
         {study.results.map((r) => (
@@ -71,19 +87,14 @@ export default function CaseStudies() {
 
   return (
     <div ref={scopeRef}>
-      <SEO
-        title="Case Studies"
-        description="See how Levrotec built Zaptude (Employability Intelligence Platform), Tabilo (Anna University timetable automation software), and HireFlow (recruitment assessment platform)."
-        keywords="Educational Assessment Software India, Timetable Automation Software Anna University, Zaptude, Tabilo, HireFlow, Levrotec case studies"
-        path="/case-studies"
-      />
+      <SEO {...PAGE_SEO.caseStudies} />
       <section className="section case-studies-hero">
         <div className="container">
           <div className="section-head center reveal">
             <span className="eyebrow" style={{ justifyContent: 'center' }}>Case Studies</span>
             <h1 className="h1">Where Ideas <span className="text-gradient">Gain Momentum.</span></h1>
             <p className="lead" style={{ margin: '18px auto 0' }}>
-              Three flagship products, built end-to-end with our clients. Here's a look at the work.
+              Three flagship products, built end-to-end with our clients — and one of our own, now in development. Here's a look at the work.
             </p>
           </div>
 

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO.jsx'
+import { PAGE_SEO } from '../seo/seo.js'
 import useReveal from '../hooks/useReveal.js'
 import { NOTIFY_EMAILS, PHONE_DISPLAY, PHONE_TEL } from '../data/contact.js'
 import './Legal.css'
@@ -11,12 +12,7 @@ export default function Legal() {
 
   return (
     <div ref={scopeRef}>
-      <SEO
-        title="Privacy Policy"
-        description="Levrotec's Privacy Policy — how we collect, use, and protect your data, covering GDPR and the Indian Information Technology Act, 2000."
-        keywords="Levrotec privacy policy, GDPR compliance India, IT Act 2000 data protection"
-        path="/privacy-policy"
-      />
+      <SEO {...PAGE_SEO.privacyPolicy} />
 
       <section className="section privacy-hero">
         <div className="container">

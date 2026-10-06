@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { FiMapPin, FiClock, FiArrowRight } from 'react-icons/fi'
 import SEO from '../components/SEO.jsx'
+import { PAGE_SEO } from '../seo/seo.js'
 import useReveal from '../hooks/useReveal.js'
 import { CAREER_DEPARTMENTS } from '../data/careers.js'
 import './Careers.css'
@@ -11,12 +12,7 @@ export default function Careers() {
 
   return (
     <div ref={scopeRef}>
-      <SEO
-        title="Careers"
-        description="Levrotec is hiring freshers and early-career professionals (0-2 years) across Engineering, Product, Marketing, and Operations in Chennai and remote."
-        keywords="freshers jobs Chennai, entry level software jobs Tamil Nadu, junior React developer jobs, junior Django developer jobs"
-        path="/careers"
-      />
+      <SEO {...PAGE_SEO.careers} />
       <section className="section careers-hero">
         <div className="container">
           <div className="section-head center reveal">

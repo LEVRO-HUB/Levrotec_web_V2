@@ -1,5 +1,6 @@
 import { FiArrowUpRight } from 'react-icons/fi'
 import SEO from '../components/SEO.jsx'
+import { PAGE_SEO } from '../seo/seo.js'
 import useReveal from '../hooks/useReveal.js'
 import { BLOG_POSTS } from '../data/blog.js'
 import './Blog.css'
@@ -13,12 +14,7 @@ export default function Blog() {
 
   return (
     <div ref={scopeRef}>
-      <SEO
-        title="Blog"
-        description="Notes from Levrotec on modern software delivery, scaling MVPs, and optimizing DevOps pipelines."
-        keywords="software delivery blog, MVP scaling, DevOps pipeline optimization, Levrotec engineering"
-        path="/blog"
-      />
+      <SEO {...PAGE_SEO.blog} />
       <section className="section blog-hero">
         <div className="container">
           <div className="section-head center reveal">
