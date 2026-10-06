@@ -2,9 +2,20 @@ import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { FiArrowRight, FiChevronLeft, FiChevronRight, FiCheckCircle, FiPhone, FiMessageCircle } from 'react-icons/fi'
 import { CALL_HOST } from '../data/team.js'
-import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL, buildNotifyMailto } from '../data/contact.js'
+import { PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL, FORM_ENDPOINT, sendNotification } from '../data/contact.js'
 import { CATEGORY, subjectFor } from '../data/classify.js'
 import './ContactModule.css'
+
+const DIVIDER = '--------------------------------'
+const SEND_ERROR = "Sorry, we couldn't send that. Please try again, or reach us by phone or WhatsApp below."
+const MAX_RESUME_BYTES = 5 * 1024 * 1024
+
+const fileToAttachment = (file) => new Promise((resolve, reject) => {
+  const reader = new FileReader()
+  reader.onload = () => resolve({ name: file.name, type: file.type || 'application/octet-stream', data: String(reader.result).split(',')[1] })
+  reader.onerror = reject
+  reader.readAsDataURL(file)
+})
 
 const WEEKDAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const TIME_SLOTS = ['9:00 AM', '10:30 AM', '12:00 PM', '2:00 PM', '3:30 PM', '5:00 PM']
@@ -31,28 +42,51 @@ function sameDate(a, b) {
   return a && b && a.toDateString() === b.toDateString()
 }
 
-function CallScheduler() {
+// Call bookings are for business enquiries only — job applicants are pointed to the application form.
+function CallScheduler({ onApplyForJob }) {
   const today = useMemo(() => new Date(), [])
   const [cursor, setCursor] = useState(new Date(today.getFullYear(), today.getMonth(), 1))
   const [selectedDate, setSelectedDate] = useState(null)
   const [selectedTime, setSelectedTime] = useState(null)
-  const [requester, setRequester] = useState({ name: '', email: '' })
+  const [requester, setRequester] = useState({ name: '', email: '', purpose: '' })
   const [confirmed, setConfirmed] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
+  const [delivery, setDelivery] = useState('draft')
 
   const updateRequester = (key) => (e) => setRequester((r) => ({ ...r, [key]: e.target.value }))
 
-  const canConfirm = selectedDate && selectedTime && requester.name.trim() && requester.email.trim()
+  const canConfirm = selectedDate && selectedTime && requester.name.trim() && requester.email.trim() && requester.purpose.trim()
 
-  const handleConfirm = () => {
-    if (!canConfirm) return
-    const mailto = buildNotifyMailto(subjectFor(CATEGORY.ENQUIRY, 'New Call Booking Request — Levrotec'), [
-      `Requested by: ${requester.name} (${requester.email})`,
-      `Host: ${CALL_HOST.name} — ${CALL_HOST.role}`,
-      `Requested date: ${selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`,
-      `Requested time: ${selectedTime}`,
-    ])
-    window.location.href = mailto
-    setConfirmed(true)
+  const handleConfirm = async () => {
+    if (!canConfirm || sending) return
+    setSending(true)
+    setError('')
+    try {
+      setDelivery(await sendNotification({
+        subject: subjectFor(CATEGORY.ENQUIRY, 'New Call Booking Request — Levrotec'),
+        replyTo: requester.email,
+        bodyLines: [
+          DIVIDER,
+          'NEW LEVROTEC CALL BOOKING',
+          'Type: GENERAL ENQUIRY (CALL BOOKING)',
+          DIVIDER,
+          '',
+          `Requested by: ${requester.name} (${requester.email})`,
+          `Host: ${CALL_HOST.name} — ${CALL_HOST.role}`,
+          `Requested date: ${selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`,
+          `Requested time: ${selectedTime}`,
+          '',
+          'Purpose of the call:',
+          requester.purpose.trim(),
+        ],
+      }))
+      setConfirmed(true)
+    } catch {
+      setError(SEND_ERROR)
+    } finally {
+      setSending(false)
+    }
   }
 
   const cells = useMemo(() => buildCalendarCells(cursor), [cursor])
@@ -77,11 +111,15 @@ function CallScheduler() {
           <strong>{selectedDate?.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</strong> at{' '}
           <strong>{selectedTime}</strong>.
         </p>
-        <p className="scheduler-confirmed-note">We've opened an email to our team with your request — send it to confirm, or we'll follow up directly.</p>
+        <p className="scheduler-confirmed-note">
+          {delivery === 'sent'
+            ? "Your request has been sent to our team — we'll confirm by email shortly."
+            : "We've opened an email to our team with your request — send it to confirm, or we'll follow up directly."}
+        </p>
         <button
           type="button"
           className="btn btn-outline btn-sm"
-          onClick={() => { setConfirmed(false); setSelectedDate(null); setSelectedTime(null); setRequester({ name: '', email: '' }) }}
+          onClick={() => { setConfirmed(false); setSelectedDate(null); setSelectedTime(null); setRequester({ name: '', email: '', purpose: '' }) }}
         >
           Book another time
         </button>
@@ -101,6 +139,11 @@ function CallScheduler() {
 
       <p className="scheduler-intro">
         Pick a date that works for you, and let's talk about your project — no pressure, no scripts.
+      </p>
+
+      <p className="scheduler-scope">
+        Call bookings are for business enquiries only. Applying for a job?{' '}
+        <button type="button" className="scheduler-scope-link" onClick={onApplyForJob}>Use the job application form</button>
       </p>
 
       <div className="calendar">
@@ -170,14 +213,22 @@ function CallScheduler() {
         </div>
       )}
 
+      {selectedDate && selectedTime && (
+        <div className="field requester-fields">
+          <label htmlFor="requesterPurpose">What would you like to discuss?*</label>
+          <textarea id="requesterPurpose" rows={3} value={requester.purpose} onChange={updateRequester('purpose')} placeholder="e.g. We need a customized booking platform for our hotel." />
+        </div>
+      )}
+
       <button
         type="button"
         className="btn btn-primary confirm-btn"
-        disabled={!canConfirm}
+        disabled={!canConfirm || sending}
         onClick={handleConfirm}
       >
-        Confirm Booking
+        {sending ? 'Sending…' : 'Confirm Booking'}
       </button>
+      {error && <p className="form-error" role="alert">{error}</p>}
     </>
   )
 }
@@ -202,10 +253,9 @@ const PURPOSES = {
   },
 }
 
-const DIVIDER = '--------------------------------'
 const orNotProvided = (value) => value.trim() || 'Not provided'
 
-function MessageForm() {
+function MessageForm({ purpose, setPurpose }) {
   // Careers "Apply now" links arrive as /contact?topic=job&role=<title>.
   const [params] = useSearchParams()
   const jobHint = params.get('topic') === 'job'
@@ -214,9 +264,24 @@ function MessageForm() {
     position: (jobHint && params.get('role')) || '', experience: '', resumeLink: '',
     message: '', nda: '', consent: false,
   }
-  const [purpose, setPurpose] = useState(jobHint ? 'job' : null)
   const [form, setForm] = useState(emptyForm)
   const [submitted, setSubmitted] = useState(false)
+  const [resumeFile, setResumeFile] = useState(null)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
+  const [delivery, setDelivery] = useState('draft')
+
+  const pickResume = (e) => {
+    const file = e.target.files?.[0] || null
+    if (file && file.size > MAX_RESUME_BYTES) {
+      e.target.value = ''
+      setResumeFile(null)
+      setError('That file is larger than 5 MB. Please upload a smaller file or share a link instead.')
+      return
+    }
+    setError('')
+    setResumeFile(file)
+  }
 
   const update = (key) => (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
@@ -227,44 +292,60 @@ function MessageForm() {
   const canSubmit = purpose && form.fullName.trim() && form.email.trim() && form.consent
     && (isJob ? form.position.trim() : form.message.trim())
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!canSubmit) return
+    if (!canSubmit || sending) return
     const { type, heading, category, subject } = PURPOSES[purpose]
+    const sendFile = isJob && FORM_ENDPOINT && resumeFile
+    const resume = [sendFile && `attached (${resumeFile.name})`, form.resumeLink.trim()].filter(Boolean).join(' | ')
     const details = isJob
       ? [
           `Position: ${form.position}`,
           `Experience: ${orNotProvided(form.experience)}`,
-          `Resume: ${form.resumeLink.trim() || 'To be attached to this email'}`,
+          `Resume: ${resume || (FORM_ENDPOINT ? 'Not provided' : 'To be attached to this email')}`,
         ]
       : [
           `Company: ${orNotProvided(form.company)}`,
           `Needs NDA: ${form.nda === 'yes' ? 'Yes' : form.nda === 'no' ? 'No' : 'Not specified'}`,
         ]
-    const mailto = buildNotifyMailto(subjectFor(category, subject), [
-      DIVIDER,
-      heading,
-      `Type: ${type}`,
-      DIVIDER,
-      '',
-      `Name: ${form.fullName}`,
-      `Email: ${form.email}`,
-      `Phone: ${orNotProvided(form.phone)}`,
-      ...details,
-      '',
-      'Message:',
-      orNotProvided(form.message),
-    ])
-    window.location.href = mailto
-    setSubmitted(true)
+    setSending(true)
+    setError('')
+    try {
+      setDelivery(await sendNotification({
+        subject: subjectFor(category, subject),
+        replyTo: form.email,
+        attachment: sendFile ? await fileToAttachment(resumeFile) : undefined,
+        bodyLines: [
+          DIVIDER,
+          heading,
+          `Type: ${type}`,
+          DIVIDER,
+          '',
+          `Name: ${form.fullName}`,
+          `Email: ${form.email}`,
+          `Phone: ${orNotProvided(form.phone)}`,
+          ...details,
+          '',
+          'Message:',
+          orNotProvided(form.message),
+        ],
+      }))
+      setSubmitted(true)
+    } catch {
+      setError(SEND_ERROR)
+    } finally {
+      setSending(false)
+    }
   }
 
   if (submitted) {
     return (
       <div className="scheduler-confirmed">
         <FiCheckCircle className="confirmed-icon" />
-        <h3>{isJob ? 'Application ready!' : 'Message sent!'}</h3>
-        {isJob ? (
+        <h3>{isJob ? (delivery === 'sent' ? 'Application sent!' : 'Application ready!') : 'Message sent!'}</h3>
+        {delivery === 'sent' ? (
+          <p>Thanks{isJob ? ' for applying' : ' for reaching out'}, {form.fullName.split(' ')[0] || 'there'}. {isJob ? 'Your application has reached our team — we\'ll be in touch if there\'s a fit.' : 'Your message has reached our team — we\'ll get back to you within one business day.'}</p>
+        ) : isJob ? (
           <p>Thanks for applying, {form.fullName.split(' ')[0] || 'there'}. We've opened an email to our team with your application — attach your resume and send it to confirm.</p>
         ) : (
           <p>Thanks for reaching out, {form.fullName.split(' ')[0] || 'there'}. We've opened an email to our team with your message — send it to confirm, and we'll get back to you within one business day.</p>
@@ -272,7 +353,7 @@ function MessageForm() {
         <button
           type="button"
           className="btn btn-outline btn-sm"
-          onClick={() => { setSubmitted(false); setForm(emptyForm) }}
+          onClick={() => { setSubmitted(false); setForm(emptyForm); setResumeFile(null) }}
         >
           Send another message
         </button>
@@ -336,8 +417,16 @@ function MessageForm() {
               <div className="field">
                 <label htmlFor="resumeLink">Resume / Portfolio Link</label>
                 <input id="resumeLink" type="text" value={form.resumeLink} onChange={update('resumeLink')} placeholder="Drive, LinkedIn or portfolio URL" />
-                <span className="field-hint">No link? Attach your resume to the email that opens when you submit.</span>
+                {!FORM_ENDPOINT && <span className="field-hint">No link? Attach your resume to the email that opens when you submit.</span>}
               </div>
+
+              {FORM_ENDPOINT && (
+                <div className="field">
+                  <label htmlFor="resumeFile">Upload Resume</label>
+                  <input id="resumeFile" type="file" accept=".pdf,.doc,.docx" onChange={pickResume} />
+                  <span className="field-hint">PDF or Word, up to 5 MB.</span>
+                </div>
+              )}
 
               <div className="field">
                 <label htmlFor="message">Anything you'd like us to know?</label>
@@ -377,9 +466,10 @@ function MessageForm() {
             <span>I agree to the <Link to="/privacy-policy" target="_blank">Privacy Policy</Link> and consent to being contacted by Levrotec.*</span>
           </label>
 
-          <button type="submit" className="btn btn-primary submit-btn" disabled={!canSubmit}>
-            {isJob ? 'Submit Application' : 'Submit'}
+          <button type="submit" className="btn btn-primary submit-btn" disabled={!canSubmit || sending}>
+            {sending ? 'Sending…' : isJob ? 'Submit Application' : 'Submit'}
           </button>
+          {error && <p className="form-error" role="alert">{error}</p>}
         </div>
       )}
     </form>
@@ -387,27 +477,33 @@ function MessageForm() {
 }
 
 export default function ContactModule() {
-  // Careers "Apply now" links (?topic=job) open straight on the form, not the call scheduler.
+  // Careers "Apply now" links (?topic=job) open straight on the job application form.
   const [params] = useSearchParams()
-  const [mode, setMode] = useState(params.get('topic') === 'job' ? 'message' : 'call')
+  const jobHint = params.get('topic') === 'job'
+  const [mode, setMode] = useState(jobHint ? 'message' : 'call')
+  const [purpose, setPurpose] = useState(jobHint ? 'job' : null)
+  const applyForJob = () => { setPurpose('job'); setMode('message') }
 
   return (
     <div className="contact-module card glass">
       <div className="contact-module-panel">
-        {mode === 'call' ? <CallScheduler /> : <MessageForm />}
+        {mode === 'call' ? <CallScheduler onApplyForJob={applyForJob} /> : <MessageForm purpose={purpose} setPurpose={setPurpose} />}
       </div>
 
-      <div className="contact-module-switch">
-        {mode === 'call' ? (
-          <button type="button" className="btn btn-text" onClick={() => setMode('message')}>
-            Send a message <FiArrowRight className="arrow" />
-          </button>
-        ) : (
-          <button type="button" className="btn btn-text" onClick={() => setMode('call')}>
-            Book a call <FiArrowRight className="arrow" />
-          </button>
-        )}
-      </div>
+      {/* Booking a call is an enquiry-only path, so it isn't offered from a job application. */}
+      {!(mode === 'message' && purpose === 'job') && (
+        <div className="contact-module-switch">
+          {mode === 'call' ? (
+            <button type="button" className="btn btn-text" onClick={() => setMode('message')}>
+              Send a message <FiArrowRight className="arrow" />
+            </button>
+          ) : (
+            <button type="button" className="btn btn-text" onClick={() => setMode('call')}>
+              Book a call <FiArrowRight className="arrow" />
+            </button>
+          )}
+        </div>
+      )}
 
       <div className="contact-module-quickline">
         <a href={PHONE_TEL}><FiPhone /> {PHONE_DISPLAY}</a>

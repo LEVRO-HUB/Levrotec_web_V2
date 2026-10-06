@@ -91,6 +91,19 @@
   line-height: 1.6;
 }
 
+.scheduler-scope {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: -8px 0 22px;
+  line-height: 1.6;
+}
+
+.scheduler-scope-link {
+  color: var(--sky-300);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
 /* ---- Calendar ---- */
 .calendar-nav {
   display: flex;
@@ -293,6 +306,12 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-secondary);
+}
+
+.form-error {
+  font-size: 0.85rem;
+  color: #ff8f8f;
+  text-align: center;
 }
 
 .field-hint {
