@@ -48,7 +48,7 @@ function CallScheduler({ onApplyForJob }) {
   const [cursor, setCursor] = useState(new Date(today.getFullYear(), today.getMonth(), 1))
   const [selectedDate, setSelectedDate] = useState(null)
   const [selectedTime, setSelectedTime] = useState(null)
-  const [requester, setRequester] = useState({ name: '', email: '', purpose: '' })
+  const [requester, setRequester] = useState({ name: '', email: '', phone: '', purpose: '' })
   const [confirmed, setConfirmed] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
@@ -56,7 +56,7 @@ function CallScheduler({ onApplyForJob }) {
 
   const updateRequester = (key) => (e) => setRequester((r) => ({ ...r, [key]: e.target.value }))
 
-  const canConfirm = selectedDate && selectedTime && requester.name.trim() && requester.email.trim() && requester.purpose.trim()
+  const canConfirm = selectedDate && selectedTime && requester.name.trim() && requester.email.trim() && requester.phone.trim() && requester.purpose.trim()
 
   const handleConfirm = async () => {
     if (!canConfirm || sending) return
@@ -73,6 +73,7 @@ function CallScheduler({ onApplyForJob }) {
           DIVIDER,
           '',
           `Requested by: ${requester.name} (${requester.email})`,
+          `Mobile: ${requester.phone.trim()}`,
           `Host: ${CALL_HOST.name} — ${CALL_HOST.role}`,
           `Requested date: ${selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}`,
           `Requested time: ${selectedTime}`,
@@ -119,7 +120,7 @@ function CallScheduler({ onApplyForJob }) {
         <button
           type="button"
           className="btn btn-outline btn-sm"
-          onClick={() => { setConfirmed(false); setSelectedDate(null); setSelectedTime(null); setRequester({ name: '', email: '', purpose: '' }) }}
+          onClick={() => { setConfirmed(false); setSelectedDate(null); setSelectedTime(null); setRequester({ name: '', email: '', phone: '', purpose: '' }) }}
         >
           Book another time
         </button>
@@ -210,6 +211,13 @@ function CallScheduler({ onApplyForJob }) {
             <label htmlFor="requesterEmail">Your Email*</label>
             <input id="requesterEmail" type="email" value={requester.email} onChange={updateRequester('email')} placeholder="jane@company.com" />
           </div>
+        </div>
+      )}
+
+      {selectedDate && selectedTime && (
+        <div className="field requester-fields">
+          <label htmlFor="requesterPhone">Mobile Number*</label>
+          <input id="requesterPhone" type="tel" autoComplete="tel" value={requester.phone} onChange={updateRequester('phone')} placeholder="+91 98765 43210" />
         </div>
       )}
 
